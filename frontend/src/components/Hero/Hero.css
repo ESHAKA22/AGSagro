@@ -1,0 +1,34 @@
+/* Hero.css */
+
+.hero {
+    position: relative; /* Allows absolute positioning of child elements */
+    width: 100%;
+    height: calc(100vh - 60px); /* Adjust based on header height */
+    margin-top: 20px; /* Adjust as needed for spacing */
+    overflow: hidden; /* Ensures that the image does not overflow */
+}
+
+.hero-image {
+    position: absolute; /* Absolute positioning to fill the container */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the entire area */
+    z-index: -1; /* Places the image behind the text */
+}
+
+
+
+.hero h1 {
+    font-size: 3rem; /* Adjust size as needed */
+    margin-bottom: 20px;
+    
+}
+
+.hero p {
+    font-size: 1.25rem; /* Adjust size as needed */
+    line-height: 1.6;
+    margin-bottom: 20px;
+    max-width: 800px; /* Limits width of text for readability */
+}

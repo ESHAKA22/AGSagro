@@ -1,0 +1,199 @@
+/* Flexbox layout for body and html to allow full height */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header and footer styling */
+header {
+    background-color: teal;
+    color: whitesmoke;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+footer {
+    background-color: rgb(5, 96, 29);
+    color: whitesmoke;
+    padding: 10px;
+    text-align: center;
+    font-size: 1em;
+    /* Stick footer at the bottom */
+    flex-shrink: 0;
+}
+
+/* Main content fills the available space */
+main {
+    flex-grow: 1;
+    padding: 25px;
+    overflow-y: auto; /* Allows scrolling if content overflows */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center vertically */
+}
+
+/* Profile picture box adjustments */
+.imgBox {
+    position: absolute; /* Position it independently */
+    top: 20px; /* Adjust the vertical placement */
+    right: 20px; /* Adjust the horizontal placement */
+    width: 150px; /* Adjust size as needed */
+    aspect-ratio: 1; /* Make it a square (can be adjusted) */
+    border-radius: 50%; /* Circular profile picture */
+    overflow: hidden;
+    z-index: 100; /* Ensure it stays above other content */
+}
+
+.imgBox img {
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    object-fit: cover; /* Ensure the image covers the circle properly */
+}
+
+/* Profile block styling */
+.profileBlock {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 1200px; /* Limit the maximum width */
+    margin: 0 auto; /* Center the profile block */
+}
+
+.profileBlock h3 {
+    font-size: 2.5em;
+    font-weight: 600;
+    text-align: center;
+    color: teal;
+    margin-bottom: 20px;
+}
+
+/* Profile details frame */
+.detailsFrame {
+    padding: 25px;
+    border-radius: 15px;
+    background-color: gainsboro;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 25px;
+    box-shadow: 0 3px 5px rgba(128, 128, 128, 0.5);
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.detailsFrame .detailsBox {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.detailsFrame .detailsBox .details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.detailsFrame .detailsBox .details .datalabel {
+    font-size: 1em;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.detailsFrame .detailsBox .details .dataValue {
+    min-width: 300px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    background-color: azure;
+    font-size: 1.25em;
+}
+
+/* Button panel styling */
+.buttonPanel {
+    position: relative;
+    z-index: 10;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: teal;
+    padding-top: 20px;
+}
+
+.buttonPanel h3 {
+    font-weight: normal;
+    font-size: 2em;
+    padding: 20px;
+    color: whitesmoke;
+    border-bottom-right-radius: 25px;
+    text-align: center;
+}
+
+.buttonPanel .optionBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 25px;
+}
+
+.buttonPanel h4 {
+    font-weight: normal;
+    font-size: 1.5em;
+    padding: 15px 25px;
+    background-color: teal;
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+.buttonPanel p {
+    background-color: lightsalmon;
+    color: maroon;
+    padding: 15px 25px;
+    letter-spacing: 2px;
+    font-size: 1.15em;
+    cursor: pointer;
+}
+
+.buttonPanel p:hover,
+.buttonPanel h4:hover {
+    box-shadow: 0 3px 5px rgba(128, 128, 128, 0.5);
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.buttonPanel h4:hover {
+    background-color: lightskyblue;
+    color: teal;
+}
+
+/* Media Queries to handle smaller screens */
+@media (max-width: 768px) {
+    .detailsFrame {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .buttonPanel h3 {
+        font-size: 1.5em;
+    }
+
+    .buttonPanel p, .buttonPanel h4 {
+        font-size: 1.2em;
+        padding: 10px 20px;
+    }
+
+    /* Adjust profile image on smaller screens */
+    .imgBox {
+        top: 10px;
+        right: 10px;
+        width: 100px;
+    }
+}

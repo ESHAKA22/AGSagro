@@ -1,0 +1,50 @@
+.filter-container {
+  
+    width: auto;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+  }
+  
+  .filter-container h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #000000;
+  }
+  
+  .price-range {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .price-range input {
+    width: 95px;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .category-list div {
+    margin-bottom: 10px;
+  }
+  
+  .category-list input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  .category-list label {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .category-list div:hover {
+    background-color: #e0e0e0;
+    padding: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  

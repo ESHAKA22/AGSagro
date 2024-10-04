@@ -1,0 +1,81 @@
+form {
+    width: fit-content;
+}
+
+.lformBlock {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
+    /* width: 400px; */
+}
+
+.lformBlock label {
+    text-transform: uppercase;
+    font-size: 1em;
+    font-weight: 500;
+    text-align: left;
+    width: 150px;
+}
+
+
+.lformBlock input {
+    padding: 5px 10px;
+    width: 250px;
+    outline: none;
+    font-size: 1.15em;
+    text-align: left;
+    border: 1px solid gainsboro;
+    border-radius: 5px;
+}
+
+.lformBlock input:focus {
+    box-shadow: 0 2px 3px rgb(200, 200, 200);
+}
+
+.lformBlock p {
+    font-size: 1.1em;
+    width: 450px;
+}
+
+.lformBlock:nth-child(4) {
+    flex-direction: column;
+    gap: 10px;
+}
+
+.lformBlock:nth-child(4) input {
+    width: fit-content;
+}
+
+.lformBlock .lformCheck {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.lformBlock .lformCheck label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-transform: capitalize;
+    width: auto;
+}
+
+.lformBlock .lformCheck input {
+    box-shadow: none;
+}
+
+.lformButtons {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.lformButtons button:first-child {
+    background-color: limegreen;
+}
+
+.lformButtons button {
+    text-transform: uppercase;
+}

@@ -1,0 +1,32 @@
+.features {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+  }
+  
+  .feature-btn {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    border: none;
+    padding: 20px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border-radius: 8px;
+  }
+  
+  .feature-btn:hover {
+    background-color: #45a049; /* Darker green */
+    transform: scale(1.05); /* Slight scaling on hover */
+  }
+  
+  .feature-btn h2 {
+    margin: 0;
+    font-size: 20px;
+  }
+  
+  .feature-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(72, 181, 67, 0.5); /* Focus ring for accessibility */
+  }
+  

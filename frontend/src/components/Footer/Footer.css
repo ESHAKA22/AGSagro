@@ -1,0 +1,71 @@
+/* Footer.css */
+
+footer {
+    background-color: #003d14; /* Dark green background for the footer */
+    color: #fff;
+    padding: 10px 0; /* Reduced padding for a more compact footer */
+    font-family: Arial, sans-serif;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between; /* Adjusted for a more compact layout */
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px; /* Reduced horizontal padding */
+}
+
+.footer-section {
+    flex: 1;
+    margin: 10px; /* Reduced margin for compactness */
+    min-width: 150px; /* Adjusted minimum width */
+}
+
+.footer-section h1, .footer-section h2 {
+    margin-bottom: 10px; /* Reduced margin for headings */
+}
+
+.footer-section p {
+    margin-bottom: 8px; /* Reduced margin for paragraphs */
+    line-height: 1.5; /* Slightly reduced line height */
+}
+
+.logo-text {
+    font-size: 20px; /* Slightly smaller font size for logo text */
+    font-weight: bold;
+}
+
+.footer-logo {
+    width: 120px; /* Adjusted logo size */
+    height: auto;
+    margin-bottom: 10px; /* Space between logo and text */
+}
+
+.footer-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin: 5px 0; /* Reduced margin for list items */
+}
+
+.footer-section ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px; /* Smaller font size for links */
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: #33cc33; /* Lighter green on hover */
+}
+
+.footer-bottom {
+    background-color: #002a11; /* Slightly darker green for the bottom section */
+    text-align: center;
+    padding: 8px 0; /* Reduced padding for a compact look */
+    font-size: 12px; /* Smaller font size */
+    border-top: 1px solid #004d1a; /* Border to separate from content */
+}

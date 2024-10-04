@@ -1,0 +1,33 @@
+nav {
+    background-color: #02da14; /* Adjust the background color */
+    padding: 10px; /* Adds padding around the nav */
+  }
+  
+  .home-ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Centers the nav links horizontally */
+  }
+  
+  .home-ll {
+    margin: 0 20px; /* Adds space between the nav items */
+  }
+  
+  .home-a {
+    color: white; /* Text color */
+    text-decoration: none; /* Remove underline */
+    font-size: 18px;
+  }
+  
+  .home-a:hover {
+    text-decoration: underline; /* Underline on hover */
+  }
+  
+  h1 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: normal;
+  }
+  

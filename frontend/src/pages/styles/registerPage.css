@@ -1,0 +1,40 @@
+.outerFrame {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.logoSignUp {
+    /* position: absolute; */
+    /* top: 10px; */
+    width: fit-content;
+}
+
+.regFrame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.regFrame h3 {
+    font-size: 1.5em;
+    letter-spacing: 2px;
+}
+
+.readMore {
+    transform: translateX(500px) translateY(-25px);
+}
+
+.readMore a {
+    padding: 5px 10px;
+    border-radius: 3px;
+    background-color: gainsboro;
+}
+
+.readMore a:hover {
+    box-shadow: 0 2px 3px rgb(175, 175, 175);
+}

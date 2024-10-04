@@ -1,0 +1,18 @@
+.about-us {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.about-us h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #004d1a; /* Dark green color for consistency */
+}
+
+.about-us p {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #333; /* Dark grey color for text */
+}

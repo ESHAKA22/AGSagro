@@ -1,0 +1,90 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #004d1a; /* Dark green background for the navbar */
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+    width: 150px; /* Adjust the logo size */
+    height: auto;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #33cc33; /* Lighter green on hover */
+    color: #fff;
+}
+
+.user-icon-item {
+    margin-right: 15px;
+}
+
+.user-icon-item a {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.user-icon-item a:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Slight highlight on hover */
+}
+
+.user-icon {
+    width: 30px;
+    height: 30px;
+}
+
+.search-bar input[type="text"] {
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    outline: none;
+}
+
+.search-bar input[type="text"]::placeholder {
+    color: #aaa;
+}
+
+.logout-btn {
+    padding: 8px 12px;
+    background-color: #e60000; /* Red for logout button */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #cc0000; /* Darker red on hover */
+}

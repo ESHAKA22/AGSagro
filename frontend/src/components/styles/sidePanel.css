@@ -1,0 +1,106 @@
+/* Main layout container */
+.layout-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full height of the viewport */
+    overflow: hidden; /* Prevent overflow of the entire layout */
+}
+
+.content-wrapper {
+    display: flex;
+    flex: 1; /* Takes remaining space between header and footer */
+    overflow: hidden; /* Ensure child elements don't overflow */
+}
+
+/* Header and Footer Styles */
+.header {
+    height: 60px; /* Adjust height as needed */
+    background-color: #4CAF50; /* Example color */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.footer {
+    height: 40px; /* Adjust height as needed */
+    background-color: #333; /* Example color */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+/* Side Panel Styles */
+.sidePanel {
+    width: 200px; /* Sidebar width */
+    background-color: #f4f4f4;
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Enable scrolling */
+    padding: 10px 0; /* Space inside the sidebar */
+    flex-shrink: 0; /* Prevent the sidebar from shrinking */
+}
+
+.sideBlock {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.sideBlock:hover {
+    background-color: #e0f7fa;
+    color: #00796b;
+}
+
+.current {
+    background-color: #004d40;
+    color: #ffffff !important;
+}
+
+.sideBlock p {
+    margin: 0;
+    font-size: 1em;
+    font-weight: 600;
+    text-transform: capitalize;
+    margin-left: 10px;
+}
+
+.icon {
+    font-size: 1.2em;
+}
+
+/* Main Content Area */
+.mainContent {
+    flex: 1; /* Takes remaining space */
+    overflow-y: auto; /* Allows scrolling for main content */
+    padding: 20px;
+    background-color: #fff; /* Background color for the content area */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .sidePanel {
+        width: 150px;
+    }
+
+    .sideBlock p {
+        display: none;
+    }
+
+    .icon {
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidePanel {
+        width: 100px;
+    }
+
+    .icon {
+        font-size: 1.1em;
+    }
+}

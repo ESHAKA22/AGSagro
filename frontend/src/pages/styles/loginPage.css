@@ -1,0 +1,139 @@
+/* Outer frame for the entire page */
+.outerFrame {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    flex-direction: column;
+    background-color: #f4f4f4; /* Light background for contrast */
+    font-family: Arial, sans-serif; /* Consistent font across the application */
+}
+
+/* Logo positioning */
+.logoInLogin {
+    position: absolute;
+    top: 20px; /* Adjusted for better visibility */
+    left: 20px; /* Added left positioning */
+}
+
+/* Main content for login form */
+.loginFrame {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 25px;
+    border-radius: 15px;
+    background-color: gainsboro;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    max-width: 400px; /* Limit width for better appearance */
+    width: 100%; /* Responsive width */
+    box-sizing: border-box; /* Include padding and border in the total width */
+    overflow: hidden; /* Prevent overflow */
+    margin: 0 auto; /* Center the login frame horizontally */
+}
+
+/* Input fields styling */
+.loginFrame input[type="text"],
+.loginFrame input[type="password"],
+.loginFrame input[type="email"] {
+    padding: 10px;
+    border: 1px solid rgb(200, 200, 200);
+    border-radius: 5px;
+    font-size: 1em;
+    transition: border-color 0.3s; /* Smooth border color transition */
+    width: 100%; /* Full width of the parent container */
+    box-sizing: border-box; /* Include padding and border in the total width */
+}
+
+/* Focus styles for input fields */
+.loginFrame input[type="text"]:focus,
+.loginFrame input[type="password"]:focus,
+.loginFrame input[type="email"]:focus {
+    border-color: rgb(75, 75, 75); /* Darker border on focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Submit button styling */
+.loginFrame button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(75, 75, 75);
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+    width: 100%; /* Full width for button */
+}
+
+/* Button hover effects */
+.loginFrame button:hover {
+    background-color: rgb(50, 50, 50); /* Darker shade on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+.loginFrame button:active {
+    transform: translateY(0); /* Reset lift effect on click */
+}
+
+/* Forgot password link */
+.loginFrame .forgotLink {
+    font-size: 0.85em;
+    color: rgb(120, 120, 120);
+    text-align: right;
+    transition: color 0.3s; /* Smooth color transition */
+}
+
+/* Hover effects for forgot link */
+.loginFrame .forgotLink:hover {
+    color: rgb(75, 75, 75);
+    letter-spacing: 1px;
+}
+
+/* Not yet a member text */
+.loginFrame .notYet {
+    font-size: 0.85em;
+    text-align: center; /* Center align for better visibility */
+}
+
+/* Hover effects for not yet member text */
+.loginFrame .notYet span {
+    color: rgb(120, 120, 120);
+    cursor: pointer;
+    transition: color 0.3s; /* Smooth color transition */
+}
+
+/* Hover effects for span */
+.loginFrame .notYet span:hover {
+    color: rgb(75, 75, 75);
+}
+
+/* Other options section */
+.loginFrame .otherOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* First block of other options */
+.loginFrame .otherOptions .block:first-child {
+    display: flex;
+    gap: 5px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* Horizontal line styling */
+.loginFrame .otherOptions .block:first-child hr {
+    width: 35%;
+    border: none;
+    background-color: rgb(165, 165, 165);
+    height: 1px;
+}
+
+/* Paragraph styling within other options */
+.loginFrame .otherOptions .block:first-child p {
+    font-size: 1em;
+    letter-spacing: 1px;
+}

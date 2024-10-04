@@ -1,0 +1,46 @@
+/* .searchBox {
+
+} */
+ 
+.searchBox {
+    width: 50%;
+}
+
+.searchBox input {
+    padding: 5px 50px 5px 10px;
+    outline: none;
+    font-size: 1.15em;
+    text-align: center;
+    border: 1px solid gainsboro;
+    border-radius: 10px;
+    text-align: start;
+    min-width: 30vw;
+    width: 92.5%;
+}
+
+.searchBox input:focus {
+    box-shadow: 0 2px 3px rgb(200, 200, 200);
+}
+
+.searchBox button {
+    border: none;
+    outline: none;
+    position: absolute;
+    font-size: 1.25em;
+    background-color: transparent;
+    color: darkblue;
+    padding: 2px 10px;
+    border-left: 1px solid gainsboro;
+    right: 5px;
+    top: 3px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    cursor: pointer;
+}
+
+.searchBox button:hover {
+    background-color: gainsboro;
+    top: 0;
+    right: 0;
+    padding: 5px 15px 5px 10px;
+}

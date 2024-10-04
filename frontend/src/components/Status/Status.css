@@ -1,0 +1,36 @@
+.product-status {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+  
+  .product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+  }
+  
+  .product-table th, .product-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+  }
+  
+  .product-table th {
+    background-color: #f2f2f2;
+  }
+  
+  
+  .product-image {
+    max-width: 1000px; /* Set a proper width */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Ensures the image is fully contained */
+  }
+  

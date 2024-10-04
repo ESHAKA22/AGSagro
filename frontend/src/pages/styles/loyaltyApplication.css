@@ -1,0 +1,32 @@
+.outerFrame {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* logo png */
+.outerFrame .logoInLoyalty {
+    position: absolute;
+    top: 10px;
+}
+
+/* main content */
+.outerFrame .loyaltyBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 25px;
+    border-radius: 15px;
+    background-color: gainsboro;
+}
+
+.outerFrame .loyaltyBlock h3 {
+    text-align: center;
+}
+
+.outerFrame .loyaltyBlock h3 span {
+    text-transform: uppercase;
+}

@@ -1,0 +1,71 @@
+/* ProductView.css */
+.product-view {
+  padding: 20px;
+}
+
+.header {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.product-table th, .product-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.product-table img {
+  border-radius: 5px; /* Optional: round image corners */
+}
+
+.update-button, .delete-button, .report-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.update-button {
+  background-color: #007bff; /* Blue */
+  color: white;
+}
+
+.delete-button {
+  background-color: #dc3545; /* Red */
+  color: white;
+}
+
+.report-button {
+  background-color: #28a745; /* Green */
+  color: white;
+}
+
+.update-button:hover, .delete-button:hover, .report-button:hover {
+  opacity: 0.9; /* Slightly fade buttons on hover */
+}
+.header {
+  margin: 20px 0; /* Adjust margin as needed */
+  font-size: 24px;
+  text-align: center; /* Center the text */
+}
+
+@media print {
+  /* Hide Actions column and buttons when printing */
+  .actions-column, .update-button, .delete-button {
+    display: none;
+  }
+}

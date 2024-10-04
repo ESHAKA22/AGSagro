@@ -1,0 +1,210 @@
+table {
+    width: 100%;
+    border-spacing: 0;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: rgb(245, 245, 245);
+    box-shadow: 0 2px 5px gainsboro;
+}
+
+table thead th {
+    text-transform: capitalize;
+    padding: 5px 0;
+    background-color: rgb(225, 225, 225);
+    border-right: 1px solid rgb(200, 200, 200);
+}
+
+table thead th:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+table thead th:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-right: none;
+}
+
+table tr td {
+    text-align: right;
+    border-right: 1px solid rgb(200, 200, 200);
+    padding: 5px 10px;
+    min-width: 125px;
+}
+
+table tr:nth-child(even) td {
+    background-color: azure;
+}
+
+table tr:nth-child(even) td:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+table tr:nth-child(even) td:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+table tr td:last-child {
+    border-right: none;
+}
+
+table tr td:last-child {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 5px;
+}
+
+.tableAddings {
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tableAddings p {
+    width: fit-content;
+}
+
+.tableAction {
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: flex;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.tableAddings .resultCount {
+    font-size: .75em;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: gray;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.paginButton {
+    font-size: 1em;
+    font-weight: 600;
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid gainsboro;
+    color: gray;
+    cursor: pointer;
+}
+
+.paginationIcons {
+    font-size: 1em;
+    padding: 5px 8px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid gray;
+    color: rgb(75, 75, 75);
+    cursor: pointer;
+}
+
+.activePagination ,
+.paginButton:hover,
+.paginationIcons:hover {
+    border: 1px solid gray;
+    color: ghostwhite !important;
+    background-color: gray;
+    box-shadow: 0 2px 5px gainsboro;
+}
+
+/* table action */
+
+#loyalty {
+    background-color: gold;
+    border: 2px solid gold;
+}
+
+#loyalty p {
+    font-size: .9em;
+    font-weight: 500;
+}
+
+#loyalty:hover {
+    background-color: transparent;
+    color: darkgoldenrod;
+    border: 2px solid darkgoldenrod;
+}
+
+#view {
+    background-color: cornflowerblue;
+    border: 2px solid cornflowerblue;
+}
+
+#view:hover {
+    background-color: transparent;
+    color: cornflowerblue;
+}
+
+#edit {
+    background-color: lawngreen;
+    border: 2px solid lawngreen;
+}
+
+#edit:hover {
+    background-color: transparent;
+    color: green;
+    border: 2px solid green;
+}
+
+#delete {
+    background-color: darksalmon;
+    border: 2px solid darksalmon;
+}
+
+#delete:hover {
+    background-color: transparent;
+    color: darkred;
+    border: 2px solid darkred;
+}
+
+.tableBlock {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.userOpt {
+    display: flex;
+    gap: 25px;
+    right: 2.5%;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.userOpt .logoutBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: darksalmon;
+    color: maroon;
+    font-weight: 600;
+    padding: 10px ;
+    border-radius: 15px;
+    flex: 1;
+    cursor: pointer;
+}
+
+.userOpt .logoutBtn:hover {
+    color: lightpink;
+    background-color: crimson;
+}

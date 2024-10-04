@@ -1,0 +1,119 @@
+/* General form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    background-color: #f0fdf4; /* Light green background */
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Form fields and labels */
+label {
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #3a7f4c; /* Dark green */
+}
+
+input[type="text"], input[type="number"], textarea, input[type="file"], .react-datepicker-wrapper {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #50c882; /* Light green border */
+    border-radius: 4px;
+    background-color: #fff;
+    margin-bottom: 15px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+input[type="text"]:focus, input[type="number"]:focus, textarea:focus, input[type="file"]:focus {
+    border-color: #5cbf82; /* Darker green on focus */
+    outline: none;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Buttons */
+button {
+    background-color: #52b77b; /* Light green button */
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #3a7f4c; /* Darker green on hover */
+}
+
+button:disabled {
+    background-color: #c8e6c9; /* Disabled button state */
+    cursor: not-allowed;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    form {
+        padding: 15px;
+    }
+
+    label {
+        font-size: 14px;
+    }
+
+    input[type="text"], input[type="number"], textarea, input[type="file"] {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+/* Toast notifications styling */
+.Toastify__toast {
+    background-color: #e8f5e9; /* Light green */
+    color: #2e7d32; /* Dark green text */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.Toastify__close-button {
+    color: #2e7d32; /* Dark green close button */
+}
+
+/* File input customization */
+input[type="file"] {
+    border: none;
+    background-color: #f8fff4;
+    cursor: pointer;
+    padding: 0;
+}
+
+input[type="file"]::file-selector-button {
+    background-color: #52b77b;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background-color: #3a7f4c;
+}

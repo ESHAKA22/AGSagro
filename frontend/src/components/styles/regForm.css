@@ -1,0 +1,111 @@
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+form .formPhase {
+    padding: 20px;
+    border-radius: 5px;
+    background-color: gainsboro;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 85%;
+}
+
+form .formPhase .regFormBlock {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+form .formPhase .regFormBlock .formInput {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
+    width: 400px;
+}
+
+form .formPhase .regFormBlock .formInput:first-child label {
+    width: 150px;
+}
+
+form .formPhase .regFormBlock .formInput:nth-child(2) label {
+    width: 45px;
+}
+
+form .formPhase .regFormBlock .formInput:nth-child(3) label {
+    width: 75px;
+}
+
+form .formPhase label {
+    text-transform: uppercase;
+    font-size: 1em;
+    font-weight: 500;
+    text-align: left;
+}
+
+form .formPhase input,
+form .formPhase select {
+    padding: 5px;
+    width: 225px;
+    outline: none;
+    font-size: 1.15em;
+    text-align: left;
+    border: 1px solid gainsboro;
+    border-radius: 5px;
+    transition: all ease-in-out .35s;
+}
+
+form .formPhase input:focus ,
+form .formPhase select:focus {
+    box-shadow: 0 2px 3px rgb(200, 200, 200);
+}
+
+form .formPhase:nth-child(2) .regFormBlock:nth-child(2) .formInput:nth-child(2) input {
+    width: 275px;
+}
+
+form .formPhase option {
+    font-size: .75em;
+}
+
+form .checkTerms {
+    display: flex;
+    gap: 5px;
+}
+
+form .checkTerms label {
+    font-size: .9em;
+}
+
+form input[type='file'] {
+    background-color: whitesmoke;
+    border-radius: 10px;
+    min-width: 400px;
+    z-index: 2;
+}
+
+
+form input[type='file']::-webkit-file-upload-button {
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    padding: 5px 15px;
+    background-color: silver;
+    color: whitesmoke;
+}
+
+
+form input[type='file']::before {
+    content: '* JPG Only';
+    position: relative;
+    font-size: .65em;
+    margin-right: 15px;
+}

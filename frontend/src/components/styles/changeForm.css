@@ -1,0 +1,15 @@
+.changeFrame form input {
+    width: 300px;
+}
+
+.changeFrame form .formBlock {
+    gap: 10px;
+}
+
+.changeFrame form p {
+    font-size: .85em;
+}
+
+.changeFrame form {
+    gap: 25px;
+}

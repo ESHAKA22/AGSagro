@@ -1,0 +1,180 @@
+/* Flexbox layout for body and html to allow full height */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header and footer styling */
+header {
+    background-color: teal;
+    color: whitesmoke;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+footer {
+    background-color: rgb(5, 96, 29);
+    color: whitesmoke;
+    padding: 10px;
+    text-align: center;
+    font-size: 1em;
+    flex-shrink: 0; /* Stick footer at the bottom */
+}
+
+/* Main content fills the available space */
+main {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between; /* Adjust for side panel */
+    padding: 25px;
+}
+
+/* Side panel styling */
+.buttonPanel {
+    flex-basis: 25%; /* Adjust the width of the side panel */
+    background-color: teal;
+    color: whitesmoke;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.buttonPanel h3 {
+    text-align: center;
+    font-weight: normal;
+    font-size: 2em;
+    border-bottom-right-radius: 25px;
+}
+
+/* Profile picture box adjustments */
+.imgBox {
+    position: absolute; /* Position it independently */
+    top: 20px; /* Adjust the vertical placement */
+    right: 20px; /* Adjust the horizontal placement */
+    width: 150px; /* Adjust size as needed */
+    aspect-ratio: 3 / 4; /* Maintain aspect ratio */
+    border-radius: 5%; /* Rounded corners */
+    overflow: hidden;
+    z-index: 100; /* Ensure it stays above other content */
+}
+
+.imgBox img {
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    object-fit: cover; /* Ensure the image covers the box properly */
+}
+
+/* Update block styling */
+.updateBlock {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 25px;
+    gap: 10px; /* Reduced gap for a closer fit */
+}
+
+.updateBlock h5 {
+    font-size: 1em; /* Smaller font size */
+    font-weight: 500;
+    text-transform: capitalize;
+    text-align: center; /* Center the name */
+}
+
+.updateBlock .updateBox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align left for a cleaner look */
+    gap: 25px;
+    z-index: 10;
+}
+
+.updateBlock .updateBox h3 {
+    font-size: 2em; /* Adjusted size for name */
+    width: auto; /* Allow it to adjust */
+    font-weight: 600;
+    color: teal;
+}
+
+/* Update form block styling */
+.updateFormBlock {
+    padding: 25px;
+    border-radius: 15px;
+    background-color: gainsboro;
+    box-shadow: 0 3px 5px rgba(128, 128, 128, 0.5);
+    flex-grow: 1; /* Allow it to fill the remaining space */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Form styling */
+.updateFormBlock form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Align items to fill the width */
+    gap: 15px; /* Space between form elements */
+}
+
+.updateFormBlock form input,
+.updateFormBlock form select {
+    padding: 5px;
+    width: 100%; /* Full width */
+    outline: none;
+    font-size: 1.15em;
+    text-align: left;
+    border: 1px solid gainsboro;
+    border-radius: 5px;
+}
+
+/* Buttons styling */
+.updateFormBlock form .updateButtons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Space between buttons */
+}
+
+.updateFormBlock form .updateButtons button {
+    text-transform: uppercase;
+    font-size: 0.9em;
+    letter-spacing: 2px;
+    padding: 10px 20px; /* Padding for buttons */
+}
+
+/* Media Queries to handle smaller screens */
+@media (max-width: 768px) {
+    .imgBox {
+        top: 10px;
+        right: 10px;
+        width: 100px;
+    }
+
+    .updateBlock .updateBox h3 {
+        font-size: 1.5em; /* Adjusted size for smaller screens */
+    }
+
+    .updateBlock h5 {
+        font-size: 0.9em; /* Smaller font size for smaller screens */
+    }
+
+    .buttonPanel {
+        flex-basis: 40%; /* Wider side panel for small screens */
+    }
+
+    .updateFormBlock {
+        padding: 15px; /* Reduced padding */
+    }
+
+    .updateFormBlock form .updateButtons button {
+        font-size: 0.8em; /* Smaller buttons on small screens */
+    }
+}

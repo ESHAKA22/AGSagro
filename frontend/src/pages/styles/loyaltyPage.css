@@ -1,0 +1,220 @@
+.loyaltyFrame {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.loyaltyFrame:first-child {
+    flex: 2;
+    justify-content: center;
+    align-items: center;
+}
+
+.loyaltyFrame:last-child {
+    flex: 1;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+.loyaltyFrame:last-child a {
+    flex: 1;
+}
+
+.loyaltyFrame:last-child .loyaltyBlock {
+    width: 100%;
+    height: 200px;
+    background: gainsboro;
+    color: dimgray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.loyaltyFrame:last-child a:first-child .loyaltyBlock {
+    border-top-right-radius: 15px;
+}
+
+.loyaltyFrame:last-child a:last-child .loyaltyBlock {
+    border-top-left-radius: 15px;
+}
+
+.loyaltyFrame:last-child .loyaltyBlock h3 {
+    font-size: 2.25em;
+    width: fit-content;
+}
+
+.loyaltyFrame:last-child .loyaltyBlock p {
+    font-size: 1em;
+    width: 35%;
+    text-align: center;
+}
+
+.loyaltyFrame:last-child .loyaltyBlock:last-child p  {
+    font-size: .85em;
+    width: 50%;
+}
+
+.loyaltyFrame:last-child .loyaltyBlock:hover {
+    background-color: sienna;
+    color: seashell;
+}
+
+
+
+/* =================================================== */
+
+.adFrame {
+    
+    width: 80vw;
+    aspect-ratio: 24 / 8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    box-shadow: 0 3px 5px gainsboro;
+}
+
+.adFrame::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    filter: brightness(.85);
+    left: 0;
+    top: 0;
+    background-image: url('../../../public/images/image.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 15px;
+}
+
+.adFrame .adBlock::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    width: 350px;
+    height: 350px;
+    left: -90px;
+    border-radius: 26% 74% 60% 40% / 22% 48% 52% 78%  ;
+    background: linear-gradient(to right, #f4c4f3, #fc67fa);
+    box-shadow: 2px 3px 5px rgba(128, 128, 128, 0.39);
+}
+
+
+.adFrame .adBlock::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    width: 350px;
+    right: -90px;
+    height: 350px;
+    border-radius: 51% 49% 41% 59% / 52% 58% 42% 48%    ;
+    background: linear-gradient(to right, #c2e59c, #64b3f4);
+}
+
+.adFrame .adBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 5;
+}
+
+.adFrame .adBlock h3 {
+    font-size: 7.5em;
+    width: fit-content;
+    color: cyan;
+}
+
+.adFrame .adBlock p {
+    font-size: 2.25em;
+    width: fit-content;
+    color: snow;
+}
+
+.adFrame .adBlock p span {
+    font-weight: bold;
+    font-size: 1.25em;
+    width: fit-content;
+    color: navy;
+}
+
+.adFrame .adBlock a {
+    font-size: 1.15em;
+    padding: 5px 15px;
+    border-radius: 10px;
+    background-color: cornflowerblue;
+    color: beige;
+    width: fit-content;
+    transform: translateY(-150%) translateX(-15%);
+}
+
+.adFrame .adBlock p:first-child {
+    transform: translateX(-30%) translateY(65%);
+}
+
+.adFrame .adBlock p:nth-child(3) {
+    transform: translateX(50%) translateY(-75%);
+}
+
+.adFrame .adBlock a:hover {
+    box-shadow: 0 3px 5px gray;
+}
+
+/* side bar */
+
+.sideBar {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 100vh;
+    width: 12.5%;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: lightblue;
+    z-index: 10;
+}
+
+.sideBar p {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid ghostwhite;
+    color: teal;
+    /* max-width: 100%; */
+    font-size: 1em;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 2px;
+    padding: 0 20px;
+    cursor: pointer;
+}
+
+.sideBar p:nth-child(3) {
+    width: calc(100% - 40px);
+}
+
+.sideBar p:first-child {
+    flex: 3;
+    align-items: flex-start;
+    padding-top: 25px;
+    text-align: left;
+    font-weight: normal;
+    font-size: 2em;
+}
+
+.sideBar p:nth-child(2):hover {
+    background-color: teal;
+    color: ghostwhite;
+}
+
+.sideBar p:nth-child(3):hover {
+    background-color: lightsalmon;
+    color: maroon;
+}
+
