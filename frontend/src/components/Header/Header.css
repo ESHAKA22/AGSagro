@@ -40,11 +40,11 @@ nav ul li a:hover {
     color: #fff;
 }
 
-.user-icon-item {
+.user-icon-item, .cart-icon-item {
     margin-right: 15px;
 }
 
-.user-icon-item a {
+.user-icon-item a, .cart-icon-item a {
     display: flex;
     align-items: center;
     padding: 8px;
@@ -52,13 +52,26 @@ nav ul li a:hover {
     transition: background-color 0.3s ease;
 }
 
-.user-icon-item a:hover {
+.user-icon-item a:hover, .cart-icon-item a:hover {
     background-color: rgba(255, 255, 255, 0.2); /* Slight highlight on hover */
 }
 
-.user-icon {
+.user-icon, .cart-icon {
     width: 30px;
     height: 30px;
+}
+
+/* Styling for the cart icon counter (if you want to show the number of items in the cart) */
+.cart-icon-item .cart-counter {
+    position: relative;
+    top: -10px;
+    right: -10px;
+    background-color: #ff3333; /* Red color for the cart item count */
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 3px 6px;
+    border-radius: 50%;
 }
 
 .search-bar input[type="text"] {

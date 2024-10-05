@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
 import LoginPage from './pages/loginPage';
 import RegisterPage from './pages/registerPage';
+import Cart from './components/Cart'; // Cart component import
 import Dashboard from './pages/dashboardPage';
 import CustomersList from './pages/customersList';
 import LoyaltyTable from './pages/loyaltyTable';
@@ -29,7 +30,7 @@ import Products from './components/Products/Products'; // Import your Products c
 import ProductView from './components/ProductView/ProductView';
 import ProductDetail from './components/ProductDetail/ProductDetail';
 import UpdateProduct from './components/UpdateProduct/UpdateProduct';
-import Stat from './components/Status/Stat'
+import Stat from './components/Status/Stat';
 
 import './styles.css';
 import './App.css';
@@ -37,6 +38,7 @@ import './App.css';
 function App() {
     const [editData, setEditData] = useState(null);
     const [customerId, setCustomerId] = useState(null); // State to hold customer ID
+    const [cartItems, setCartItems] = useState([]); // Cart items state
 
     const fetchRequests = async () => {
         try {
@@ -50,6 +52,30 @@ function App() {
     useEffect(() => {
         fetchRequests();
     }, []);
+
+    // Add to cart function
+    const addToCart = (product) => {
+        const existingItem = cartItems.find(item => item._id === product._id);
+        if (existingItem) {
+            setCartItems(cartItems.map(item => 
+                item._id === product._id ? { ...existingItem, quantity: existingItem.quantity + 1 } : item
+            ));
+        } else {
+            setCartItems([...cartItems, { ...product, quantity: 1 }]);
+        }
+    };
+
+    // Update item quantity in cart
+    const updateCartItemQuantity = (productId, amount) => {
+        setCartItems(cartItems.map(item => 
+            item._id === productId ? { ...item, quantity: item.quantity + amount } : item
+        ));
+    };
+
+    // Remove item from cart
+    const removeFromCart = (productId) => {
+        setCartItems(cartItems.filter(item => item._id !== productId));
+    };
 
     return (
         <Router>
@@ -72,16 +98,24 @@ function App() {
                     <Route path="/customer/myedit/:customerId" element={<UpdateMyProfile />} />
                     <Route path="/ReportGenerate" element={<ReportGenerate />} />
                     
-                    {/* Add the Products route for the catalogue */}
-                    <Route path="/catalogue" element={<Products />} /> 
+                    {/* Products route for the catalogue */}
+                    <Route 
+                        path="/catalogue" 
+                        element={<Products addToCart={addToCart} />} // Pass addToCart function as prop
+                    /> 
                     <Route path="/addproduct" element={<AddProduct />} />
                     <Route path="/" element={<Stat />} />
                     <Route path="/productview" element={<ProductView />} />
-                     <Route path="/products" element={<Products />} />
-                   <Route path="/products/:id" element={<ProductDetail />} />
-                   <Route path="/inventory" element={<ProductView />} />
-                  
-                   <Route path="/productview/:id" element={<UpdateProduct />} />
+                    <Route 
+                        path="/products" 
+                        element={<Products addToCart={addToCart} />} // Pass addToCart function as prop
+                    />
+                    <Route 
+                        path="/products/:id" 
+                        element={<ProductDetail addToCart={addToCart} />} // Pass addToCart function as prop
+                    />
+                    <Route path="/inventory" element={<ProductView />} />
+                    <Route path="/productview/:id" element={<UpdateProduct />} />
                  
                     <Route
                         path="/requests"
@@ -93,15 +127,25 @@ function App() {
                         }
                     />
 
-                    
                     <Route path="/edit/:id" element={<EditRequest />} />
 
                     <Route path="/orders" element={<OrdersPage />} />
 
-                    
                     <Route path="/about" element={<AboutUs />} />
 
                     <Route path="*" element={<ErrorPage />} />
+
+                    {/* Cart route */}
+                    <Route 
+                        path="/myCart" 
+                        element={
+                            <Cart 
+                                cartItems={cartItems} 
+                                updateCartItemQuantity={updateCartItemQuantity} 
+                                removeFromCart={removeFromCart} 
+                            />
+                        }
+                    />
                 </Routes>
                 <Footer />
             </div>

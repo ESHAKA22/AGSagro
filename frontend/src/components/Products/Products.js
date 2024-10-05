@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
-import ProductFilter from '../Filters/ProductFilter'; // Import the filter component
+import { Link } from 'react-router-dom';
+import ProductFilter from '../Filters/ProductFilter';
 import './Products.css';
 
 axios.defaults.baseURL = 'http://localhost:8070/api/products';
 
-const Products = () => {
+const Products = ({ addToCart }) => { // addToCart function passed as a prop
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(''); // State for search input
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    // Fetch products from the backend API
     axios.get('/')
       .then((response) => {
         const { data } = response;
@@ -31,12 +30,10 @@ const Products = () => {
     setFilteredProducts(filtered);
   };
 
-  // Handle search term input
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  // Filter products based on search term and filters
   const displayedProducts = filteredProducts.filter(product =>
     product.P_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -45,27 +42,24 @@ const Products = () => {
     <div>
       <div className="main-container">
         <div className="filter-container">
-          {/* Filter Component on the left */}
           <ProductFilter onFilterChange={handleFilterChange} />
         </div>
 
         <div className="right-side-container">
-          {/* Search Bar */}
           <div className="product-search-container">
             <input 
               type="text"
               placeholder="Search products..."
               value={searchTerm}
-              onChange={handleSearch}  // Handle search input
+              onChange={handleSearch}
               className="search-bar"
             />
           </div>
 
-          {/* Product Cards */}
           <div className="products-container">
             {displayedProducts.map(product => (
               <div className="product-card" key={product._id}>
-                <Link to={`/products/${product._id}`}> {/* Link to product details */}
+                <Link to={`/products/${product._id}`}>
                   <img
                     src={product.P_Image}
                     alt={product.P_name}
@@ -74,6 +68,12 @@ const Products = () => {
                   <h3>{product.P_name}</h3>
                   <p>Price: Rs. {product.Price.toLocaleString('en-LK')}</p>
                 </Link>
+                <button 
+                  className="add-to-cart-button" 
+                  onClick={() => addToCart(product)} // Add to cart when clicked
+                >
+                  Add to Cart
+                </button>
               </div>
             ))}
           </div>

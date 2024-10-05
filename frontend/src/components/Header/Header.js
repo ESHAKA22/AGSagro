@@ -3,7 +3,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
 import logo from '../../assets/images/logoH.png';
-import userIcon from '../../assets/images/user-icon.png'; 
+import userIcon from '../../assets/images/user-icon.png';
+import cartIcon from '../../assets/images/cart-icon.png'; // Import your cart icon image
 
 const Header = () => {
   return (
@@ -20,12 +21,18 @@ const Header = () => {
           <li><Link to="/returns">Returns</Link></li>
           <li><Link to="/supplier">Supplier</Link></li>
           <li><Link to="/contact">Contact Us</Link></li>
+          {/* Cart Icon */}
+          <li className="cart-icon-item">
+            <Link to="/myCart"> 
+              <img src={cartIcon} alt="Cart Icon" className="cart-icon" />
+            </Link>
+          </li>
+          {/* User Icon */}
           <li className="user-icon-item">
             <Link to="/login"> 
               <img src={userIcon} alt="User Icon" className="user-icon" />
             </Link>
           </li>
-          
         </ul>
       </nav>
     </header>

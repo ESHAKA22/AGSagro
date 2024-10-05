@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom';
 import './ProductDetail.css';
 import Nav from "../Nav/Nav";
 
-const ProductDetail = () => {
-  const { id } = useParams(); // Get the product ID from the URL
+const ProductDetail = ({ addToCart }) => { // addToCart function passed as a prop
+  const { id } = useParams();
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
@@ -30,17 +30,22 @@ const ProductDetail = () => {
     <div>
       <Nav />
       <div className="product-detail-container">
-      <h2>{product.P_name}</h2>
-      <img src={product.P_Image} alt={product.P_name} className="product-detail-image" />
-      <p><strong>Manufacturer:</strong> {product.Manufacture}</p>
-      <p><strong>Category:</strong> {product.Category}</p>
-      <p style={{ color: stockColor }}><strong>Stock Status:</strong> {stockStatus}</p>
-      <p><strong>Price:</strong> Rs. {product.Price.toLocaleString('en-LK')}</p>
-      <p><strong>Description:</strong> {product.Description}</p>
-      <button className="add-to-cart-button">Add to Cart</button>
+        <h2>{product.P_name}</h2>
+        <img src={product.P_Image} alt={product.P_name} className="product-detail-image" />
+        <p><strong>Manufacturer:</strong> {product.Manufacture}</p>
+        <p><strong>Category:</strong> {product.Category}</p>
+        <p style={{ color: stockColor }}><strong>Stock Status:</strong> {stockStatus}</p>
+        <p><strong>Price:</strong> Rs. {product.Price.toLocaleString('en-LK')}</p>
+        <p><strong>Description:</strong> {product.Description}</p>
+        <button 
+          className="add-to-cart-button" 
+          onClick={() => addToCart(product)} // Add to cart when clicked
+          disabled={product.Quantity <= 0} // Disable if out of stock
+        >
+          Add to Cart
+        </button>
+      </div>
     </div>
-    </div>
-    
   );
 };
 

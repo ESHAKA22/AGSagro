@@ -1,0 +1,37 @@
+.cart {
+    width: 300px;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.cartItems {
+    margin-top: 20px;
+}
+
+.cartItem {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.cartItem div {
+    margin: 5px;
+}
+
+.cartTotal {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+button {
+    margin-left: 10px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+button:disabled {
+    cursor: not-allowed;
+}
