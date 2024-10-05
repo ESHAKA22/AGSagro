@@ -74,6 +74,7 @@ app.use('/requests', requestRouter); // Requests routes
 
 // Use cart routes
 app.use('/api/cart', cartRoutes); // Added cart routes
+app.use('/api/requests', requestRouter);
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {

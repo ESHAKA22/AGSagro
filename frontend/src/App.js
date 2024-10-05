@@ -31,6 +31,7 @@ import ProductView from './components/ProductView/ProductView';
 import ProductDetail from './components/ProductDetail/ProductDetail';
 import UpdateProduct from './components/UpdateProduct/UpdateProduct';
 import Stat from './components/Status/Stat'
+import MyOrders from './components/MyOrders'; 
 
 import './styles.css';
 import './App.css';
@@ -112,6 +113,7 @@ function App() {
                     <Route path="/orders" element={<OrdersPage />} />
                     <Route path="/about" element={<AboutUs />} />
                     <Route path="*" element={<ErrorPage />} />
+                    <Route path="/myorders/:customerId" element={<MyOrders />} />
                 </Routes>
                 <Footer />
             </div>

@@ -6,6 +6,8 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable'; 
 
 const RequestList = ({ requests, onDelete }) => {
+    console.log('RequestList received requests:', requests); // Log the requests to check
+
     const navigate = useNavigate();
     const [showCalculator, setShowCalculator] = useState(false);
     const [selectedQuantity, setSelectedQuantity] = useState(0);
@@ -36,7 +38,6 @@ const RequestList = ({ requests, onDelete }) => {
         doc.setFontSize(16);
         doc.text('Request Report', 14, 22);
 
-        
         doc.setFontSize(12);
         doc.text(`Customer Name: ${request.customerName}`, 14, 40);
         doc.text(`Company Name: ${request.companyName}`, 14, 50);
@@ -54,7 +55,7 @@ const RequestList = ({ requests, onDelete }) => {
     };
 
     const handleSendReport = async (request) => {
-        
+        // Logic for sending report can be added here
     };
 
     const filteredRequests = requests.filter(request => 

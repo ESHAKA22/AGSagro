@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
+    const navigate = useNavigate();
     const [cart, setCart] = useState([]);
     const [customerId, setCustomerId] = useState(null);
     const [quantities, setQuantities] = useState({}); // Store quantities for each product
@@ -38,6 +40,10 @@ const Cart = () => {
         fetchCart();
         getCustomerIdFromCookies();
     }, []);
+
+    const handleCheckout = () => {
+      navigate('/checkout'); // Redirect to the order page
+  };
 
     const handleIncreaseQuantity = (productId) => {
         const newQuantity = quantities[productId] + 1;
@@ -133,6 +139,7 @@ const Cart = () => {
             ) : (
                 <p>Your cart is empty.</p>
             )}
+            <button onClick={handleCheckout}>Checkout</button>
         </div>
     );
 };

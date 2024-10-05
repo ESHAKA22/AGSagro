@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import SidePanel from '../../components/sidePanel';
-import '../styles/layout.css';
+import Cookies from 'js-cookie';  // Import js-cookie to handle cookies
 import './styles/customerProfile.css';
 
 const Address = ({ primaryAddress, country, postalCode }) => {
@@ -105,6 +104,7 @@ const CustomerProfile = () => {
     if (!customer) return <p>No customer found</p>;
 
     const handleLogoutButtonClick = () => {
+        Cookies.remove('loggedInUser');  // Remove the cookie on logout
         navigate('/login');
     };
 
@@ -120,9 +120,8 @@ const CustomerProfile = () => {
         navigate(`/loyalty/${customerId}`);
     };
 
-    // New function to handle My Orders button click
     const handleMyOrdersButtonClick = () => {
-        navigate(`/myorders/${customerId}`); // Assuming you have a route for orders
+        navigate(`/myorders/${customerId}`); // Navigate to MyOrders route
     };
 
     return (
@@ -131,7 +130,7 @@ const CustomerProfile = () => {
                 <div className="buttonPanel">
                     <h3 onClick={handleProfileButtonClick}>User Profile</h3>
                     <div className="optionBlock">
-                    <h4 onClick={() => navigate(`/myorders/${customerId}`)}>My Orders</h4>
+                        <h4 onClick={handleMyOrdersButtonClick}>My Orders</h4>
                         <h4 onClick={handleLoyaltyButtonClick}>Become a Loyalty Member</h4>
                         <h4 onClick={handleUpdateButtonClick}>Update Profile</h4>
                         <p onClick={handleLogoutButtonClick}>Logout</p>
@@ -204,7 +203,6 @@ const CustomerProfile = () => {
                                 </p>
                             </div>
                         ) : null}
-                        
                     </div>
                 </div>
                 <div className="profileBlock">

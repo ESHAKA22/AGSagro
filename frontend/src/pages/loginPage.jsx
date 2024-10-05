@@ -1,19 +1,23 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie'; // Add js-cookie to check cookies
 import LoginForm from '../components/loginForm';
 import LogoPng from '../components/logoPng';
 import { Link } from 'react-router-dom';
 import './styles/loginPage.css';
 
-const LoginPage = ({ isAuthenticated, setCustomerId }) => {
+const LoginPage = ({ setCustomerId }) => {
   const navigate = useNavigate();
 
-  // Redirect if already logged in
   useEffect(() => {
-    if (isAuthenticated) {
-      navigate('/dashboard'); // Modify as necessary to the appropriate route
+    // Check if the user is already logged in
+    const loggedInUser = Cookies.get('loggedInUser');
+    
+    if (loggedInUser) {
+      // Redirect to profile if already logged in
+      navigate(`/profile/${loggedInUser}`);
     }
-  }, [isAuthenticated, navigate]);
+  }, [navigate]);
 
   return (
     <div className="outerFrame">

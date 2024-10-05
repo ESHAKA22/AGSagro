@@ -5,8 +5,11 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Cookies from 'js-cookie'; // Use js-cookie to handle cookies
 
-const RequestForm = ({ fetchRequests, editData, customerId }) => {
+const RequestForm = ({ fetchRequests, editData }) => {
+    
+    const customerId = Cookies.get('customerId');
     const [formData, setFormData] = useState(
         editData || {
             customerId: customerId ? String(customerId) : '', 
@@ -117,10 +120,8 @@ const RequestForm = ({ fetchRequests, editData, customerId }) => {
                     }
                 });
                 toast.success('Request created successfully!');
-                
-                sendPdfToCustomer(formData.customerId);
             }
-            fetchRequests();
+            fetchRequests();  // Fetch the updated requests for both My Orders and Request List
             setFormData({
                 customerId: customerId ? String(customerId) : '', 
                 customerName: '',
@@ -140,16 +141,6 @@ const RequestForm = ({ fetchRequests, editData, customerId }) => {
         } catch (error) {
             console.error('Error details:', error.response ? error.response.data : error.message);
             toast.error('There was an error processing your request.');
-        }
-    };
-
-    const sendPdfToCustomer = async (customerId) => {
-        try {
-            await axios.post(`http://localhost:8070/send-pdf/${customerId}`);
-            toast.success('PDF sent to the customer!');
-        } catch (error) {
-            console.error('Error sending PDF:', error);
-            toast.error('Failed to send PDF to customer.');
         }
     };
 
@@ -286,7 +277,7 @@ const RequestForm = ({ fetchRequests, editData, customerId }) => {
                 </label>
                 <br />
                 <label>
-                    Design File (PDF only, max 5MB):
+                    Design File (PDF only, max 50MB):
                     <input
                         type="file"
                         name="designFile"
