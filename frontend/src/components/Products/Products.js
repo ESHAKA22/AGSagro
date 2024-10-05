@@ -7,21 +7,56 @@ import './Products.css';
 axios.defaults.baseURL = 'http://localhost:8070/api/products';
 
 const Products = () => {
-  const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [products, setProducts] = useState([]); // Store all products
+  const [filteredProducts, setFilteredProducts] = useState([]); // Store filtered products
   const [searchTerm, setSearchTerm] = useState(''); // State for search input
+  const [customerId, setCustomerId] = useState(null); // State for storing customer ID
+
+  // Fetch customer ID from cookies
+  const getCustomerIdFromCookies = () => {
+    const id = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('customerId='))
+      ?.split('=')[1];
+    setCustomerId(id);
+  };
 
   useEffect(() => {
     // Fetch products from the backend API
     axios.get('/')
       .then((response) => {
         const { data } = response;
-        setProducts(data.products || []);
-        setFilteredProducts(data.products || []);
+        setProducts(data.products || []); // Set all products
+        setFilteredProducts(data.products || []); // Set filtered products
       })
       .catch((error) => console.error('Error:', error));
+
+    // Get customer ID from cookies
+    getCustomerIdFromCookies();
   }, []);
 
+  // Handle adding to cart
+  const handleAddToCart = async (productId) => {
+    if (!customerId) {
+      alert('Please log in to add items to your cart.');
+      return;
+    }
+  
+    try {
+      const response = await axios.post('http://localhost:8070/api/cart/add', {
+        productId,
+        quantity: 1,
+      }, {
+        withCredentials: true,  // Ensure credentials (cookies) are sent
+      });
+  
+      alert('Product added to cart!');
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+    }
+  };
+
+  // Handle filter changes
   const handleFilterChange = ({ selectedCategories, priceRange }) => {
     const filtered = products.filter(product => {
       const isWithinPriceRange = product.Price >= priceRange.min && product.Price <= priceRange.max;
@@ -74,6 +109,13 @@ const Products = () => {
                   <h3>{product.P_name}</h3>
                   <p>Price: Rs. {product.Price.toLocaleString('en-LK')}</p>
                 </Link>
+                {/* Add to Cart Button */}
+                <button 
+                  className="add-to-cart-button"
+                  onClick={() => handleAddToCart(product._id)} // Call add to cart function
+                >
+                  Add to Cart
+                </button>
               </div>
             ))}
           </div>

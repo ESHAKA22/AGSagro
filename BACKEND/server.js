@@ -2,7 +2,6 @@ require('dotenv').config(); // Load environment variables
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const dotenv = require('dotenv');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -10,18 +9,16 @@ const cookieParser = require('cookie-parser');
 // Initialize express app
 const app = express();
 
+// Middleware to handle CORS and allow credentials
+app.use(cors({
+  origin: 'http://localhost:3000', // Allow only your frontend
+  credentials: true,               // Allow credentials (cookies, auth headers, etc.)
+}));
+
 // Middleware
 app.use(express.json()); // Parse incoming JSON
 app.use(bodyParser.json());
 app.use(cookieParser());
-
-// CORS configuration
-app.use(cors({
-  origin: 'http://localhost:3000',
-}));
-
-// Additional CORS configuration if needed
-app.use(cors());
 
 // MongoDB Connection
 const connectDB = async () => {
@@ -41,7 +38,7 @@ connectDB();
 
 // Serve static files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve uploaded design files
-app.use('/images', express.static(path.join(__dirname, 'images'))); // Serve uploaded images
+app.use('/images', express.static(path.join(__dirname, 'images')));   // Serve uploaded images
 
 // Import routes
 const productRoutes = require('./routes/ProductRoutes');
@@ -53,6 +50,7 @@ const ClientRouter = require('./routes/clientRouter');
 const uploadRouter = require('./routes/uploadRouter');
 const loyaltyRouter = require('./routes/loyaltyRouter');
 const requestRouter = require('./routes/requests');
+const cartRoutes = require('./routes/CartRoutes'); // New import for cart routes
 
 // Use routes
 app.use('/api/products', productRoutes);
@@ -73,6 +71,9 @@ app.use('/api/supplier', supplierRoutes);
 app.use('/api', ClientRouter);
 app.use('/api', uploadRouter); // Combined API routes for uploads
 app.use('/requests', requestRouter); // Requests routes
+
+// Use cart routes
+app.use('/api/cart', cartRoutes); // Added cart routes
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
+import Cart from './components/Cart'; // Import the Cart component
 import RequestForm from './components/RequestForm';
 import EditRequest from './components/EditRequest';
 import Home from './pages/Home';
@@ -38,10 +39,11 @@ function App() {
     const [editData, setEditData] = useState(null);
     const [customerId, setCustomerId] = useState(null); // State to hold customer ID
 
+    // Fetch requests for other components
     const fetchRequests = async () => {
         try {
             const response = await axios.get('http://localhost:8070/requests');
-            
+            // Handle the response if needed
         } catch (error) {
             console.error('There was an error fetching the requests!', error);
         }
@@ -49,6 +51,18 @@ function App() {
 
     useEffect(() => {
         fetchRequests();
+    }, []);
+
+    // Function to get customerId from cookies (or alternatively use login flow)
+    useEffect(() => {
+        const getCustomerIdFromCookies = () => {
+            const id = document.cookie
+                .split('; ')
+                .find(row => row.startsWith('customerId='))
+                ?.split('=')[1];
+            setCustomerId(id);
+        };
+        getCustomerIdFromCookies();
     }, []);
 
     return (
@@ -71,18 +85,19 @@ function App() {
                     <Route path="/myprofile/:customerId" element={<UserProfile />} />
                     <Route path="/customer/myedit/:customerId" element={<UpdateMyProfile />} />
                     <Route path="/ReportGenerate" element={<ReportGenerate />} />
-                    
+
                     {/* Add the Products route for the catalogue */}
-                    <Route path="/catalogue" element={<Products />} /> 
+                    <Route path="/catalogue" element={<Products customerId={customerId} />} /> 
                     <Route path="/addproduct" element={<AddProduct />} />
-                    <Route path="/" element={<Stat />} />
                     <Route path="/productview" element={<ProductView />} />
-                     <Route path="/products" element={<Products />} />
-                   <Route path="/products/:id" element={<ProductDetail />} />
-                   <Route path="/inventory" element={<ProductView />} />
-                  
-                   <Route path="/productview/:id" element={<UpdateProduct />} />
-                 
+                    <Route path="/products" element={<Products customerId={customerId} />} /> {/* Pass customerId to Products */}
+                    <Route path="/products/:id" element={<ProductDetail />} />
+                    <Route path="/inventory" element={<ProductView />} />
+                    <Route path="/productview/:id" element={<UpdateProduct />} />
+
+                    {/* Add Cart Route */}
+                    <Route path="/cart" element={<Cart customerId={customerId} />} /> {/* Pass customerId to Cart */}
+
                     <Route
                         path="/requests"
                         element={
@@ -93,14 +108,9 @@ function App() {
                         }
                     />
 
-                    
                     <Route path="/edit/:id" element={<EditRequest />} />
-
                     <Route path="/orders" element={<OrdersPage />} />
-
-                    
                     <Route path="/about" element={<AboutUs />} />
-
                     <Route path="*" element={<ErrorPage />} />
                 </Routes>
                 <Footer />

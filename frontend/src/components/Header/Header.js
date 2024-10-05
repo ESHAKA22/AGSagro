@@ -1,4 +1,3 @@
-// src/components/Header/Header.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
@@ -20,12 +19,12 @@ const Header = () => {
           <li><Link to="/returns">Returns</Link></li>
           <li><Link to="/supplier">Supplier</Link></li>
           <li><Link to="/contact">Contact Us</Link></li>
+          <li><Link to="/cart">View My Cart</Link></li> {/* Added View My Cart */}
           <li className="user-icon-item">
             <Link to="/login"> 
               <img src={userIcon} alt="User Icon" className="user-icon" />
             </Link>
           </li>
-          
         </ul>
       </nav>
     </header>
