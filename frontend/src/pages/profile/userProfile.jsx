@@ -57,6 +57,14 @@ const CustomerProfile = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        // Authentication check
+        const customerIdCookie = Cookies.get('customerId');
+        if (!customerIdCookie) {
+            alert('You are not logged in! Please log in first.');
+            navigate('/login'); // Redirect to login page if not authenticated
+            return;
+        }
+
         // Fetch customer data from the backend
         fetch(`http://localhost:8070/api/selectedclient?cid=${customerId}`)
             .then(response => response.json())
@@ -97,15 +105,16 @@ const CustomerProfile = () => {
             .catch(error => {
                 console.error('Error fetching loyalty data:', error);
             });
-    }, [customerId]);
+    }, [customerId, navigate]);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
     if (!customer) return <p>No customer found</p>;
 
     const handleLogoutButtonClick = () => {
-        Cookies.remove('loggedInUser');  // Remove the cookie on logout
-        navigate('/login');
+        Cookies.remove('customerId');  // Remove customerId cookie
+        Cookies.remove('loggedInUser'); // Remove loggedInUser cookie (if used)
+        navigate('/login');  // Redirect to the login page
     };
 
     const handleUpdateButtonClick = () => {

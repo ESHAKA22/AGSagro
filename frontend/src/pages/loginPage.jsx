@@ -11,11 +11,11 @@ const LoginPage = ({ setCustomerId }) => {
 
   useEffect(() => {
     // Check if the user is already logged in
-    const loggedInUser = Cookies.get('loggedInUser');
+    const loggedInUser = Cookies.get('customerId');  // Changed to check for 'customerId'
     
     if (loggedInUser) {
       // Redirect to profile if already logged in
-      navigate(`/profile/${loggedInUser}`);
+      navigate(`/myprofile/${loggedInUser}`);  // Corrected URL to match your profile route
     }
   }, [navigate]);
 

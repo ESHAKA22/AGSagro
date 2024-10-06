@@ -1,0 +1,83 @@
+/* Basic reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Container for the entire news list */
+.news-list-container {
+  max-width: 800px;
+  margin: 0 auto; /* Center the news list */
+  padding: 20px;
+  background-color: #f8f9fa; /* Light background color */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.news-list-container h2{
+color: black;
+}
+
+/* Centered heading for the news section */
+.news-heading {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #343a40;
+  font-weight: bold;
+}
+
+/* Message or error styling */
+.message, .no-news {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #dc3545;
+  margin-bottom: 20px;
+}
+
+/* Individual news item card */
+.news-item {
+  background-color: white;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05); /* Soft shadow */
+  text-align: center; /* Center-align title, content, and date */
+  transition: transform 0.3s ease; /* Animation for hover effect */
+}
+
+/* Hover effect for news items */
+.news-item:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+}
+
+/* Title of the news */
+.news-title {
+  font-size: 1.8rem;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+/* Content of the news */
+.news-content {
+  font-size: 1.2rem;
+  color: #6c757d;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+/* News date */
+.news-date {
+  font-size: 0.9rem;
+  color: #adb5bd;
+}
+
+/* Styling for the image in news articles */
+.news-image {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  margin-top: 10px;
+  border-radius: 10px;
+}

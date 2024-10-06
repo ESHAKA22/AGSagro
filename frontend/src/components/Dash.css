@@ -1,0 +1,171 @@
+/* Dashboard.css */
+
+/* Overall Container Styles */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to right, #e3f2fd, #ffffff); /* Soft gradient background */
+}
+
+/* Header Styles */
+.dashboard-header {
+  background-color: #2196f3; /* Primary color */
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Header shadow */
+}
+
+.dashboard-header h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* User Info Styles */
+.user-info {
+  font-size: 16px;
+}
+
+/* Dashboard Overview Styles */
+.dashboard-overview {
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px; /* Rounded corners */
+  text-align: center; /* Center the text */
+}
+
+.dashboard-overview h2 {
+  margin: 0 0 10px 0;
+  font-size: 22px;
+  color: #333;
+}
+
+.dashboard-overview p {
+  margin: 0;
+  color: #555;
+}
+
+/* Layout Styles */
+.dashboard-layout {
+  display: flex;
+  flex: 1;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 220px;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 15px 0;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.sidebar a:hover {
+  background: rgba(255, 255, 255, 0.1); /* Hover effect */
+}
+
+/* Main Content Styles */
+.dashboard-main {
+  flex: 1;
+  padding: 20px;
+}
+
+/* Metrics Section Styles */
+.dashboard-metrics {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.metric {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px; /* More rounded corners */
+  padding: 20px;
+  text-align: center;
+  flex: 1;
+  margin: 0 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  transition: transform 0.3s;
+}
+
+.metric:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+}
+
+.metric h3 {
+  margin: 0 0 5px 0;
+  font-size: 18px;
+  color: #555;
+}
+
+.metric p {
+  font-size: 26px;
+  font-weight: bold;
+  margin: 0;
+  color: #2196f3; /* Primary color for metrics */
+}
+
+/* Dashboard Grid Styles */
+.dashboard-grid {
+  display: flex; /* Use flex to center items */
+  flex-wrap: wrap; /* Allow items to wrap */
+  justify-content: center; /* Center the items */
+  gap: 20px; /* Space between grid items */
+  margin-top: 20px; /* Margin above the grid */
+}
+
+.dashboard-icon {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px; /* Rounded corners */
+  padding: 25px; /* Increased padding for larger buttons */
+  text-align: center;
+  text-decoration: none;
+  color: #333;
+  transition: box-shadow 0.3s, transform 0.3s;
+  display: flex; /* Flexbox to center items */
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  width: 150px; /* Fixed width for uniformity */
+  height: 150px; /* Fixed height for uniformity */
+}
+
+.dashboard-icon:hover {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px); /* Lift effect on hover */
+}
+
+.dashboard-icon img {
+  max-width: 80px; /* Increase icon size */
+  height: auto; /* Maintain aspect ratio */
+  margin-bottom: 10px; /* Space below icons */
+}
+
+.dashboard-icon p {
+  margin: 0;
+  font-weight: bold;
+  font-size: 18px; /* Increase font size for better visibility */
+}

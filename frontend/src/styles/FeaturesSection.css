@@ -1,0 +1,208 @@
+/* General Features Section Styles */
+.features-section {
+  text-align: center;
+  padding: 50px;
+  background-color: #e9f7f5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Header Section */
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.header-section h2 {
+  font-size: 2.5em;
+  color: #1877f2;
+  background-color: #e0f7ff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  display: inline-block;
+  margin-bottom: 40px;
+}
+
+.support-ticket-btn {
+  padding: 12px 25px;
+  background-color: #28a745;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 1em;
+  transition: background-color 0.3s;
+  margin-left: auto;
+}
+
+.support-ticket-btn:hover {
+  background-color: #c8cbd3;
+}
+
+/* Customer Service Section */
+.customer-service-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.customer-service-content {
+  max-width: 600px;
+  text-align: center;
+  padding: 20px;
+}
+
+.customer-service-content h3 {
+  font-size: 3em;
+  color: #1877f2;
+  margin-bottom: 15px;
+}
+
+.customer-service-content p {
+  font-size: 1.1em;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.learn-more-btn {
+  display: inline-block;
+  padding: 12px 25px;
+  background-color: #ffc107;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.learn-more-btn:hover {
+  background-color: #e0a800;
+}
+
+/* Service Image Styles */
+.service-img {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 30px;
+}
+
+/* Feature Cards */
+.feature-cards {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  gap: 20px;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  padding: 20px;
+  margin: 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: left;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.card-img {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+  margin-bottom: 20px;
+}
+
+.card h3 {
+  font-size: 1.5em;
+  color: #1877f2;
+  margin-bottom: 15px;
+}
+
+.card p {
+  font-size: 1em;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.see-more-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.see-more-btn:hover {
+  background-color: #218838;
+}
+
+/* Categories Section */
+.categories-section {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.categories-section h3 {
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.category-cards {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.category-card {
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.category-icon {
+  font-size: 3em;
+  color: #1877f2;
+  margin-bottom: 10px;
+}
+
+.category-card h4 {
+  font-size: 1.2em;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.category-link {
+  font-size: 0.9em;
+  color: #28a745;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.category-link:hover {
+  color: #218838;
+}

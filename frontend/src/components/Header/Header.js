@@ -31,7 +31,7 @@ const Header = () => {
           <li><Link to="/orders">Orders</Link></li>
           <li><Link to="/returns">Returns</Link></li>
           <li><Link to="/supplier">Supplier</Link></li>
-          <li><Link to="/contact">Contact Us</Link></li>
+          <li><Link to="/customer-service">Contact Us</Link></li>  {/* Updated Link to /customer-service */}
           <li><Link to="/cart">View My Cart</Link></li> {/* Cart Link */}
           <li className="user-icon-item">
             <button onClick={handleProfileClick} className="user-icon-button">
