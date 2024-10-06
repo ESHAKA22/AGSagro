@@ -5,7 +5,7 @@ const cors = require('cors');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-
+const orderRoutes = require('./routes/orderRoutes');  // Declared only once here
 // Initialize express app
 const app = express();
 
@@ -74,6 +74,24 @@ app.use('/requests', requestRouter); // Requests routes
 
 // Use cart routes
 app.use('/api/cart', cartRoutes); // Added cart routes
+app.use('/api/requests', requestRouter);
+app.use('/api/orders', orderRoutes); // Use the new order routes
+
+app.use('/api', orderRoutes); // Fixed order routes
+app.use('/api', cartRoutes); 
+
+
+app.put('/requests/:id/approve', async (req, res) => {
+    try {
+        const requestId = req.params.id;
+        const updatedRequest = await Request.findByIdAndUpdate(requestId, { status: 'Approved' }, { new: true });
+        res.json(updatedRequest);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to approve request' });
+    }
+});
+
+
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {

@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import CostCalculator from './CostCalculator';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable'; 
+import axios from 'axios';
 
-const RequestList = ({ requests, onDelete }) => {
+const RequestList = ({ requests, fetchRequests }) => {
     const navigate = useNavigate();
     const [showCalculator, setShowCalculator] = useState(false);
     const [selectedQuantity, setSelectedQuantity] = useState(0);
@@ -13,8 +14,16 @@ const RequestList = ({ requests, onDelete }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const calculatorRef = useRef(null);
 
-    const handleEdit = (id) => {
-        navigate(`/edit/${id}`);
+    const handleApprove = async (id) => {
+        try {
+            // Send a PUT request to update the status to 'Approved'
+            await axios.put(`http://localhost:8070/requests/${id}/approve`, { withCredentials: true });
+            alert('Order approved successfully');
+            fetchRequests();  // Refresh the list after approval
+        } catch (error) {
+            console.error('Error approving request:', error);
+            alert('Failed to approve the request');
+        }
     };
 
     const handleCalculateClick = (quantity) => {
@@ -36,7 +45,6 @@ const RequestList = ({ requests, onDelete }) => {
         doc.setFontSize(16);
         doc.text('Request Report', 14, 22);
 
-        
         doc.setFontSize(12);
         doc.text(`Customer Name: ${request.customerName}`, 14, 40);
         doc.text(`Company Name: ${request.companyName}`, 14, 50);
@@ -51,10 +59,6 @@ const RequestList = ({ requests, onDelete }) => {
         doc.text(`Calculated Cost: ${calculatedCost}`, 14, 140);
 
         doc.save(`request_${request._id}.pdf`);
-    };
-
-    const handleSendReport = async (request) => {
-        
     };
 
     const filteredRequests = requests.filter(request => 
@@ -76,15 +80,16 @@ const RequestList = ({ requests, onDelete }) => {
                 {filteredRequests.map(request => (
                     <div className="request-card" key={request._id}>
                         <h3>{request.partName}</h3>
-                        <p><strong>Customer:</strong> {request.customerName}</p>
-                        <p><strong>Company:</strong> {request.companyName}</p>
+                        <p><strong>Customer ID:</strong> {request.customerId}</p>
+                        <p><strong>Customer Name:</strong> {request.customerName}</p>
+                        <p><strong>Company Name:</strong> {request.companyName}</p>
                         <p><strong>Machine Type:</strong> {request.machineType}</p>
                         <p><strong>Machine Model:</strong> {request.machineModel}</p>
                         <p><strong>Material:</strong> {request.material}</p>
                         <p><strong>Manufacture Year:</strong> {request.ManufactureYear}</p>
                         <p><strong>Surface Finish:</strong> {request.surfaceFinish}</p>
                         <p><strong>Quantity:</strong> {request.quantity}</p>
-                        <p><strong>Your Message:</strong> {request.yourMessage}</p>
+                        <p><strong>Message:</strong> {request.yourMessage}</p>
                         <p>
                             <strong>Design File:</strong> 
                             {request.designFile ? (
@@ -101,11 +106,9 @@ const RequestList = ({ requests, onDelete }) => {
                             )}
                         </p>
                         <div className="request-actions">
-                            <button onClick={() => handleEdit(request._id)}>Edit</button>
-                            <button onClick={() => onDelete(request._id)}>Delete</button>
+                            <button onClick={() => handleApprove(request._id)}>Approve</button>
                             <button onClick={() => handleCalculateClick(request.quantity)}>Calculate Cost</button>
                             <button onClick={() => handleGeneratePdf(request)}>Download PDF</button>
-                            <button onClick={() => handleSendReport(request)}>Send Report</button>
                         </div>
                     </div>
                 ))}

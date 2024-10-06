@@ -14,7 +14,8 @@ const requestSchema = new Schema({
     surfaceFinish: { type: String },
     quantity: { type: Number, required: true },
     yourMessage: { type: String },
-    designFile: { type: String }
+    designFile: { type: String },
+    status: { type: String, default: 'Pending' } // Add status field with default value 'Pending'
 });
 
 const CustomRequest = mongoose.model("CustomRequest", requestSchema);

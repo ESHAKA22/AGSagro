@@ -5,16 +5,27 @@ import RequestList from '../components/RequestList';
 const OrdersPage = () => {
     const [showCustomOrders, setShowCustomOrders] = useState(false);
     const [requests, setRequests] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null); // Handle any errors during fetching
 
     // Function to fetch requests from the backend
-    const fetchRequests = async () => {
-        try {
-            const response = await axios.get('http://localhost:8070/requests');
-            setRequests(response.data);
-        } catch (error) {
-            console.error('Error fetching requests:', error);
-        }
-    };
+    // Function to fetch requests from the backend
+const fetchRequests = async () => {
+    setLoading(true);  // Show loading spinner
+    setError(null);    // Reset error state
+    try {
+        // Ensure you're calling the correct backend route that fetches all custom requests
+        const response = await axios.get('http://localhost:8070/api/requests');  // Correct endpoint
+        console.log('Fetched Custom Orders:', response.data);  // Log data to verify
+        setRequests(response.data);  // Set the fetched requests
+    } catch (error) {
+        console.error('Error fetching requests:', error);
+        setError('Failed to fetch requests.');  // Set error message
+    } finally {
+        setLoading(false);  // Stop loading spinner
+    }
+};
+
 
     // Handle showing custom orders
     const handleShowCustomOrders = () => {
@@ -44,20 +55,15 @@ const OrdersPage = () => {
         console.log('Edit request:', request);
     };
 
-    useEffect(() => {
-        // You can optionally fetch requests on component mount if needed
-    }, []);
-
     return (
         <div>
             <h1>Orders Page</h1>
             <div style={{ marginBottom: '20px' }}>
-                {/* Increased marginRight to 20px for more space between buttons */}
                 <button 
                     onClick={handleShowCustomOrders} 
                     style={{
                         padding: '10px 20px',
-                        marginRight: '20px', /* Increased space between buttons */
+                        marginRight: '20px', 
                         fontSize: '1em',
                         cursor: 'pointer',
                         borderRadius: '5px',
@@ -87,7 +93,17 @@ const OrdersPage = () => {
             {showCustomOrders && (
                 <div>
                     <h2>Custom Orders List</h2>
-                    <RequestList requests={requests} onDelete={handleDelete} onEdit={handleEdit} />
+
+                    {loading && <p>Loading custom orders...</p>}
+                    {error && <p style={{ color: 'red' }}>{error}</p>}
+
+                    {!loading && !error && (
+                        <RequestList 
+                            requests={requests} 
+                            onDelete={handleDelete} 
+                            onEdit={handleEdit} 
+                        />
+                    )}
                 </div>
             )}
         </div>

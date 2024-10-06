@@ -5,15 +5,56 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Cookies from 'js-cookie'; // Use js-cookie to handle cookies
 
-const RequestForm = ({ fetchRequests, editData, customerId }) => {
+const RequestForm = ({ fetchRequests, editData }) => {
+    const customerId = Cookies.get('customerId');
+    
+    // Mapping of machine model numbers to machine types (real-world agricultural machinery)
+    const machineModelMapping = {
+        'JD 6175R': 'Tractor',
+        'JD S780': 'Combine Harvester',
+        'JD 9870 STS': 'Combine Harvester',
+        'CIH Magnum 380': 'Tractor',
+        'CIH Axial-Flow 8250': 'Combine Harvester',
+        'NH CR9.90': 'Combine Harvester',
+        'NH T8.435': 'Tractor',
+        // Add more mappings as needed
+    };
+
+    // Mapping of part numbers to part names (real-world parts for agricultural machines)
+    const partNumberMapping = {
+        'R123456': 'Fuel Injector for John Deere 6175R',
+        'AH216675': 'Grain Auger for John Deere S780',
+        'AXE16692': 'Hydraulic Pump for John Deere 9870 STS',
+        'ZTX16585': 'Rear Axle for Case IH Magnum 380',
+        'T15871': 'Feeder Chain for Case IH Axial-Flow 8250',
+        '84248397': 'Air Filter for New Holland CR9.90',
+        '87301756': 'Transmission for New Holland T8.435',
+        // Add more mappings as needed
+    };
+
+    // Predefined list of materials for the dropdown
+    const materialOptions = [
+        'Steel',
+        'Aluminum',
+        'Cast Iron',
+        'Stainless Steel',
+        'Bronze',
+        'Plastic',
+        'Rubber',
+        'Composite',
+        'Ceramic',
+        // Add more materials as needed
+    ];
+
     const [formData, setFormData] = useState(
         editData || {
             customerId: customerId ? String(customerId) : '', 
             customerName: '',
             companyName: '',
-            machineType: '',
             machineModel: '',
+            machineType: '',
             partName: '',
             partNumber: '',
             material: '',
@@ -27,45 +68,61 @@ const RequestForm = ({ fetchRequests, editData, customerId }) => {
     const [file, setFile] = useState(null);
 
     const isValidForm = () => {
+        // Form validation logic
         if (!formData.customerId.trim()) {
             toast.error('Customer ID is required.');
             return false;
         }
-
         if (!/^[a-zA-Z\s]+$/.test(formData.customerName)) {
             toast.error('Customer Name should only contain letters and spaces.');
             return false;
         }
-
         if (formData.quantity <= 0 || isNaN(formData.quantity)) {
             toast.error('Quantity must be a positive number.');
             return false;
         }
-
         if (!formData.ManufactureYear) {
             toast.error('Please select a valid Manufacture Year.');
             return false;
         }
-
         if (file && file.size > 50 * 1024 * 1024) {
             toast.error('File size must be less than 50MB.');
             return false;
         }
-
-        const requiredFields = ['customerName', 'machineType', 'machineModel', 'partName', 'material'];
+        const requiredFields = ['customerName', 'machineModel', 'machineType', 'partName', 'material'];
         for (const field of requiredFields) {
             if (!formData[field].trim()) {
                 toast.error(`Please fill out the ${field.replace(/([A-Z])/g, ' $1')}.`);
                 return false;
             }
         }
-
         return true;
     };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+
+        setFormData((prevFormData) => {
+            let updatedData = { ...prevFormData, [name]: value };
+
+            // Auto-fill machine type when a known machine model is entered
+            if (name === 'machineModel' && machineModelMapping[value]) {
+                updatedData = { 
+                    ...updatedData, 
+                    machineType: machineModelMapping[value] 
+                };
+            }
+
+            // Auto-fill part name when a known part number is entered
+            if (name === 'partNumber' && partNumberMapping[value]) {
+                updatedData = { 
+                    ...updatedData, 
+                    partName: partNumberMapping[value] 
+                };
+            }
+
+            return updatedData;
+        });
     };
 
     const handleYearChange = (date) => {
@@ -117,16 +174,14 @@ const RequestForm = ({ fetchRequests, editData, customerId }) => {
                     }
                 });
                 toast.success('Request created successfully!');
-                
-                sendPdfToCustomer(formData.customerId);
             }
-            fetchRequests();
+            fetchRequests();  // Fetch the updated requests for both My Orders and Request List
             setFormData({
                 customerId: customerId ? String(customerId) : '', 
                 customerName: '',
                 companyName: '',
-                machineType: '',
                 machineModel: '',
+                machineType: '',
                 partName: '',
                 partNumber: '',
                 material: '',
@@ -140,16 +195,6 @@ const RequestForm = ({ fetchRequests, editData, customerId }) => {
         } catch (error) {
             console.error('Error details:', error.response ? error.response.data : error.message);
             toast.error('There was an error processing your request.');
-        }
-    };
-
-    const sendPdfToCustomer = async (customerId) => {
-        try {
-            await axios.post(`http://localhost:8070/send-pdf/${customerId}`);
-            toast.success('PDF sent to the customer!');
-        } catch (error) {
-            console.error('Error sending PDF:', error);
-            toast.error('Failed to send PDF to customer.');
         }
     };
 
@@ -189,6 +234,17 @@ const RequestForm = ({ fetchRequests, editData, customerId }) => {
                 </label>
                 <br />
                 <label>
+                    Machine Model:
+                    <input
+                        type="text"
+                        name="machineModel"
+                        value={formData.machineModel}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
+                <br />
+                <label>
                     Machine Type:
                     <input
                         type="text"
@@ -200,13 +256,13 @@ const RequestForm = ({ fetchRequests, editData, customerId }) => {
                 </label>
                 <br />
                 <label>
-                    Machine Model:
+                    Part Number:
                     <input
                         type="text"
-                        name="machineModel"
-                        value={formData.machineModel}
+                        name="partNumber"
+                        value={formData.partNumber}
                         onChange={handleChange}
-                        required
+                        onBlur={handleChange}  // Auto-fill when the user moves away from the field
                     />
                 </label>
                 <br />
@@ -222,24 +278,18 @@ const RequestForm = ({ fetchRequests, editData, customerId }) => {
                 </label>
                 <br />
                 <label>
-                    Part Number:
-                    <input
-                        type="text"
-                        name="partNumber"
-                        value={formData.partNumber}
-                        onChange={handleChange}
-                    />
-                </label>
-                <br />
-                <label>
                     Material:
-                    <input
-                        type="text"
+                    <select
                         name="material"
                         value={formData.material}
                         onChange={handleChange}
                         required
-                    />
+                    >
+                        <option value="">Select Material</option>
+                        {materialOptions.map((material, index) => (
+                            <option key={index} value={material}>{material}</option>
+                        ))}
+                    </select>
                 </label>
                 <br />
                 <div>
@@ -286,7 +336,7 @@ const RequestForm = ({ fetchRequests, editData, customerId }) => {
                 </label>
                 <br />
                 <label>
-                    Design File (PDF only, max 5MB):
+                    Design File (PDF only, max 50MB):
                     <input
                         type="file"
                         name="designFile"

@@ -31,6 +31,12 @@ import ProductView from './components/ProductView/ProductView';
 import ProductDetail from './components/ProductDetail/ProductDetail';
 import UpdateProduct from './components/UpdateProduct/UpdateProduct';
 import Stat from './components/Status/Stat'
+import MyOrders from './components/MyOrders'; 
+import Checkout from './components/Checkout'; 
+import OrderConfirmation from './components/OrderConfirmation';
+import Payment from './components/Payment';
+import MyPayments from './components/MyPayments';
+
 
 import './styles.css';
 import './App.css';
@@ -85,7 +91,7 @@ function App() {
                     <Route path="/myprofile/:customerId" element={<UserProfile />} />
                     <Route path="/customer/myedit/:customerId" element={<UpdateMyProfile />} />
                     <Route path="/ReportGenerate" element={<ReportGenerate />} />
-
+                    
                     {/* Add the Products route for the catalogue */}
                     <Route path="/catalogue" element={<Products customerId={customerId} />} /> 
                     <Route path="/addproduct" element={<AddProduct />} />
@@ -94,7 +100,7 @@ function App() {
                     <Route path="/products/:id" element={<ProductDetail />} />
                     <Route path="/inventory" element={<ProductView />} />
                     <Route path="/productview/:id" element={<UpdateProduct />} />
-
+                    <Route path="/order-confirmation" element={<OrderConfirmation />} />
                     {/* Add Cart Route */}
                     <Route path="/cart" element={<Cart customerId={customerId} />} /> {/* Pass customerId to Cart */}
 
@@ -112,6 +118,13 @@ function App() {
                     <Route path="/orders" element={<OrdersPage />} />
                     <Route path="/about" element={<AboutUs />} />
                     <Route path="*" element={<ErrorPage />} />
+                    <Route path="/myorders/:customerId" element={<MyOrders />} />
+                    <Route path="/checkout" element={<Checkout />} />
+                    <Route path="/payment" element={<Payment />} />
+                    <Route path="/mypayments/:customerId" element={<MyPayments />} />
+                    <Route path="/mypayments" element={<MyPayments />} />
+
+                    <Route path="/order-confirmation" element={<OrderConfirmation />} />
                 </Routes>
                 <Footer />
             </div>
