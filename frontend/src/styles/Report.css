@@ -1,0 +1,38 @@
+.container {
+  margin: 70px;
+}
+
+.header {
+  text-align: center; /* Center align the header text */
+  margin-bottom: 20px; /* Optional: Add space below the header */
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  border: 1px solid #000000;
+  padding: 8px;
+}
+
+.table th {
+  background-color: #f4f4f4;
+  text-align: left;
+}
+
+.table-striped tbody tr:nth-child(even) {
+  background-color: #000000;
+}
+
+.btn {
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-warning {
+  background-color: #f0ad4e;
+  color: white;
+}

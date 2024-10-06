@@ -5,9 +5,9 @@ const cors = require('cors');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const orderRoutes = require('./routes/orderRoutes');  // Declared only once here
-// Initialize express app
+
 const app = express();
+const PORT = process.env.PORT || 8070;
 
 // Middleware to handle CORS and allow credentials
 app.use(cors({
@@ -19,6 +19,7 @@ app.use(cors({
 app.use(express.json()); // Parse incoming JSON
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'uploads'))); // Serve static files (uploads)
 
 // MongoDB Connection
 const connectDB = async () => {
@@ -40,7 +41,7 @@ connectDB();
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve uploaded design files
 app.use('/images', express.static(path.join(__dirname, 'images')));   // Serve uploaded images
 
-// Import routes
+// Import your routes
 const productRoutes = require('./routes/ProductRoutes');
 const authRoutes = require('./routes/auth.route.js');
 const contractRoutes = require('./routes/contract.route.js');
@@ -51,8 +52,14 @@ const uploadRouter = require('./routes/uploadRouter');
 const loyaltyRouter = require('./routes/loyaltyRouter');
 const requestRouter = require('./routes/requests');
 const cartRoutes = require('./routes/CartRoutes'); // New import for cart routes
+const orderRoutes = require('./routes/orderRoutes');  // Your order routes
 
-// Use routes
+// Import friend's routes
+const customerRouter = require('./routes/customer');
+const feedbackRouter = require('./routes/feedbackRoutes');
+const newsRouter = require('./routes/newsRoutes');
+
+// Use your routes
 app.use('/api/products', productRoutes);
 
 // Example route from friend's server.js
@@ -63,7 +70,7 @@ app.get('/api/products/:id', (req, res) => {
     .catch(err => res.status(500).json({ error: 'Product not found' }));
 });
 
-// Routes from your server.js
+// Use your routes
 app.use('/api/auth', authRoutes);
 app.use('/api/contract', contractRoutes);
 app.use('/api/edit', editRoutes);
@@ -77,10 +84,12 @@ app.use('/api/cart', cartRoutes); // Added cart routes
 app.use('/api/requests', requestRouter);
 app.use('/api/orders', orderRoutes); // Use the new order routes
 
-app.use('/api', orderRoutes); // Fixed order routes
-app.use('/api', cartRoutes); 
+// Use friend's routes
+app.use('/customer', customerRouter);
+app.use('/feedback', feedbackRouter);
+app.use('/news', newsRouter);
 
-
+// Approval route
 app.put('/requests/:id/approve', async (req, res) => {
     try {
         const requestId = req.params.id;
@@ -90,8 +99,6 @@ app.put('/requests/:id/approve', async (req, res) => {
         res.status(500).json({ message: 'Failed to approve request' });
     }
 });
-
-
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {
@@ -105,7 +112,6 @@ app.use((err, req, res, next) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 8070;
 app.listen(PORT, () => {
     console.log(`Server is running on port: ${PORT}`);
 });
