@@ -37,7 +37,8 @@ router.post('/', upload.single('designFile'), async (req, res) => {
             surfaceFinish: req.body.surfaceFinish,
             quantity: req.body.quantity,
             yourMessage: req.body.yourMessage,
-            designFile: req.file ? req.file.path : '' // Save file path if a file is uploaded
+            designFile: req.file ? req.file.path : '', // Save file path if a file is uploaded
+            status: 'Pending' // Default status
         });
 
         const newRequest = await customRequest.save();
@@ -65,7 +66,6 @@ router.get('/customer', async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
-
 
 // UPDATE a custom request by ID (PUT)
 router.put('/:id', upload.single('designFile'), async (req, res) => {
@@ -102,8 +102,7 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-
-// Fetch ALL custom requests (GET) - Ensure this route exists
+// Fetch ALL custom requests (GET)
 router.get('/', async (req, res) => {
     try {
         const customRequests = await CustomRequest.find();  // Fetch all requests, no customer filter
@@ -113,5 +112,26 @@ router.get('/', async (req, res) => {
     }
 });
 
+// APPROVE a custom request by ID (PUT)
+router.put('/:id/approve', async (req, res) => {
+    try {
+        const requestId = req.params.id;
+
+        // Find the request and update the status to 'Approved'
+        const updatedRequest = await CustomRequest.findByIdAndUpdate(
+            requestId, 
+            { status: 'Approved' }, 
+            { new: true }
+        );
+
+        if (!updatedRequest) {
+            return res.status(404).json({ message: 'Request not found' });
+        }
+
+        res.json(updatedRequest);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to approve request' });
+    }
+});
 
 module.exports = router;

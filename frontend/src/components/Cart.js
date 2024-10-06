@@ -42,8 +42,9 @@ const Cart = () => {
     }, []);
 
     const handleCheckout = () => {
-      navigate('/checkout'); // Redirect to the order page
-  };
+        navigate('/checkout', { state: { cart } }); // Pass the cart data to checkout
+    };
+    
 
     const handleIncreaseQuantity = (productId) => {
         const newQuantity = quantities[productId] + 1;

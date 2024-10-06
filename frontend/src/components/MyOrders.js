@@ -11,6 +11,28 @@ const MyOrders = () => {
     const [editedOrder, setEditedOrder] = useState({});  // Store the updated data during edit
     const navigate = useNavigate();
 
+    // Mapping of machine model numbers to machine types (real-world agricultural machinery)
+    const machineModelMapping = {
+        'JD 6175R': 'Tractor',
+        'JD S780': 'Combine Harvester',
+        'JD 9870 STS': 'Combine Harvester',
+        'CIH Magnum 380': 'Tractor',
+        'CIH Axial-Flow 8250': 'Combine Harvester',
+        'NH CR9.90': 'Combine Harvester',
+        'NH T8.435': 'Tractor',
+    };
+
+    // Mapping of part numbers to part names (real-world parts for agricultural machines)
+    const partNumberMapping = {
+        'R123456': 'Fuel Injector for John Deere 6175R',
+        'AH216675': 'Grain Auger for John Deere S780',
+        'AXE16692': 'Hydraulic Pump for John Deere 9870 STS',
+        'ZTX16585': 'Rear Axle for Case IH Magnum 380',
+        'T15871': 'Feeder Chain for Case IH Axial-Flow 8250',
+        '84248397': 'Air Filter for New Holland CR9.90',
+        '87301756': 'Transmission for New Holland T8.435',
+    };
+
     // Fetch orders on component mount
     useEffect(() => {
         const fetchOrders = async () => {
@@ -37,9 +59,27 @@ const MyOrders = () => {
     // Handle input changes for editable fields
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setEditedOrder({
-            ...editedOrder,
-            [name]: value,
+
+        setEditedOrder((prevEditedOrder) => {
+            let updatedOrder = { ...prevEditedOrder, [name]: value };
+
+            // Auto-fill machine type when a known machine model is entered
+            if (name === 'machineModel' && machineModelMapping[value]) {
+                updatedOrder = {
+                    ...updatedOrder,
+                    machineType: machineModelMapping[value],
+                };
+            }
+
+            // Auto-fill part name when a known part number is entered
+            if (name === 'partNumber' && partNumberMapping[value]) {
+                updatedOrder = {
+                    ...updatedOrder,
+                    partName: partNumberMapping[value],
+                };
+            }
+
+            return updatedOrder;
         });
     };
 
@@ -95,11 +135,38 @@ const MyOrders = () => {
                                 // Editable fields
                                 <>
                                     <label>
-                                        <strong>Part Name:</strong>
+                                        <strong>Customer ID:</strong>
                                         <input
                                             type="text"
-                                            name="partName"
-                                            value={editedOrder.partName}
+                                            name="customerId"
+                                            value={editedOrder.customerId}
+                                            onChange={handleInputChange}
+                                        />
+                                    </label>
+                                    <label>
+                                        <strong>Customer Name:</strong>
+                                        <input
+                                            type="text"
+                                            name="customerName"
+                                            value={editedOrder.customerName}
+                                            onChange={handleInputChange}
+                                        />
+                                    </label>
+                                    <label>
+                                        <strong>Company Name:</strong>
+                                        <input
+                                            type="text"
+                                            name="companyName"
+                                            value={editedOrder.companyName}
+                                            onChange={handleInputChange}
+                                        />
+                                    </label>
+                                    <label>
+                                        <strong>Machine Model:</strong>
+                                        <input
+                                            type="text"
+                                            name="machineModel"
+                                            value={editedOrder.machineModel}
                                             onChange={handleInputChange}
                                         />
                                     </label>
@@ -113,11 +180,20 @@ const MyOrders = () => {
                                         />
                                     </label>
                                     <label>
-                                        <strong>Machine Model:</strong>
+                                        <strong>Part Name:</strong>
                                         <input
                                             type="text"
-                                            name="machineModel"
-                                            value={editedOrder.machineModel}
+                                            name="partName"
+                                            value={editedOrder.partName}
+                                            onChange={handleInputChange}
+                                        />
+                                    </label>
+                                    <label>
+                                        <strong>Part Number:</strong>
+                                        <input
+                                            type="text"
+                                            name="partNumber"
+                                            value={editedOrder.partNumber}
                                             onChange={handleInputChange}
                                         />
                                     </label>
@@ -169,13 +245,17 @@ const MyOrders = () => {
                             ) : (
                                 // Display fields
                                 <>
-                                    <p><strong>Machine Type:</strong> {order.machineType}</p>
+                                    <p><strong>Customer ID:</strong> {order.customerId}</p>
+                                    <p><strong>Customer Name:</strong> {order.customerName}</p>
+                                    <p><strong>Company Name:</strong> {order.companyName}</p>
                                     <p><strong>Machine Model:</strong> {order.machineModel}</p>
+                                    <p><strong>Machine Type:</strong> {order.machineType}</p>
+                                    <p><strong>Part Name:</strong> {order.partName}</p>
+                                    <p><strong>Part Number:</strong> {order.partNumber || 'N/A'}</p>
                                     <p><strong>Material:</strong> {order.material}</p>
                                     <p><strong>Manufacture Year:</strong> {order.ManufactureYear}</p>
                                     <p><strong>Quantity:</strong> {order.quantity}</p>
                                     <p><strong>Surface Finish:</strong> {order.surfaceFinish}</p>
-                                    <p><strong>Part Number:</strong> {order.partNumber || 'N/A'}</p>
                                     <p><strong>Message:</strong> {order.yourMessage || 'N/A'}</p>
                                 </>
                             )}
