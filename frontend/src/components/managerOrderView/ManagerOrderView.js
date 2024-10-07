@@ -14,7 +14,7 @@ function ManagerOrderView() {
     useEffect(() => {
         const fetchReturns = async () => {
             try {
-                const response = await axios.get('http://localhost:8100/returns');
+                const response = await axios.get('http://localhost:8070/returns');
                 setReturns(response.data.returns || []);
             } catch (error) {
                 console.error('Error fetching return orders:', error);
@@ -25,7 +25,7 @@ function ManagerOrderView() {
 
 const approveOrder = async (id) => {
     try {
-        const response = await axios.put(`http://localhost:8100/returns/${id}/approve`);
+        const response = await axios.put(`http://localhost:8070/returns/${id}/approve`);
         console.log('API Response:', response.data);
         const approvedOrder = response.data;
 
@@ -43,7 +43,7 @@ const approveOrder = async (id) => {
 
 const rejectOrder = async (id) => {
     try {
-        const response = await axios.put(`http://localhost:8100/returns/${id}/reject`);
+        const response = await axios.put(`http://localhost:8070/returns/${id}/reject`);
         console.log('API Response:', response.data);
         const rejectedOrder = response.data;
 

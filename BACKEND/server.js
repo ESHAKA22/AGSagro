@@ -103,6 +103,18 @@ app.use((err, req, res, next) => {
     });
 });
 
+app.get('/returns', async (req, res) => {
+    const { customerId } = req.query; // Get the customerId from query parameters
+  
+    try {
+      const returnOrders = await ReturnOrderModel.find({ customerId }); // Filter by customerId
+      res.status(200).json({ returns: returnOrders });
+    } catch (error) {
+      res.status(500).json({ error: 'Error fetching return orders' });
+    }
+  });
+
+
 // Start the server (merged the server start logic from app.js)
 const PORT = process.env.PORT || 8070;
 app.listen(PORT, () => {

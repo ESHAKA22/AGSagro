@@ -27,6 +27,12 @@ const Payment = () => {
         }
     }, [cart]);
 
+    const generateOrderId = () => {
+        // Create a unique order ID based on the timestamp and customer ID
+        const timestamp = Date.now();
+        return `ORD-${customerId}-${timestamp}`;
+    };
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setBankDetails(prev => ({ ...prev, [name]: value }));
@@ -41,14 +47,16 @@ const Payment = () => {
     const handleConfirmPayment = () => {
         // Hide modal after confirming
         setShowModal(false);
-        
+
+        const orderId = generateOrderId(); // Generate a unique order ID
+        const paymentDate = new Date().toLocaleDateString();
+
         // Simulate payment processing
         setTimeout(() => {
-            const paymentDate = new Date().toLocaleDateString();
             // Navigate to Order Confirmation with orderId, cart, shippingDetails, and paymentDate
             navigate('/order-confirmation', { 
                 state: { 
-                    orderId: '670265181f66eb67c5ef7047',  // You can replace this with an actual order ID if needed
+                    orderId,  // Pass the generated order ID
                     cart, 
                     shippingDetails, 
                     paymentDate, 

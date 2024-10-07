@@ -18,7 +18,7 @@ function Update() {
   useEffect(() => {
     const fetchReturnData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8100/returns/${id}`);
+        const response = await axios.get(`http://localhost:8070/returns/${id}`);
         setFormData(response.data.returns || {});
       } catch (error) {
         console.error("Error fetching return data:", error);
@@ -143,7 +143,7 @@ function Update() {
 
   const sendRequest = async (imageUrl) => {
     try {
-      await axios.put(`http://localhost:8100/returns/${id}`, {
+      await axios.put(`http://localhost:8070/returns/${id}`, {
         ordernu: formData.ordernu, // Ensure that order number remains the same
         name: formData.name,
         email: formData.email,

@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react'; // Added useEffect import
-import { useNavigate, useParams, useLocation } from 'react-router-dom'; // Added useParams and useLocation imports
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import Cookies from 'js-cookie'; // Import Cookies to handle customerId
-import styles from './DashboardReturn.module.css'; // Remove if not used
+import Cookies from 'js-cookie';
+import styles from './DashboardReturn.module.css';
 
 function DashboardReturn() {
-  const { orderId } = useParams();  // Now useParams is defined
-  const location = useLocation();  // Now useLocation is defined
+  const { orderId } = useParams();
+  const location = useLocation();
   const history = useNavigate();
 
   const [formData, setInputs] = useState({
-    ordernu: orderId || "",  // Use orderId if it's available
+    ordernu: orderId || generateUniqueOrderId(), // Generate order ID if not provided
     name: "",
     email: "",
     phone: "",
@@ -19,16 +19,22 @@ function DashboardReturn() {
     reason: "",
   });
 
-  const customerId = Cookies.get('customerId'); // Retrieve the customerId from the cookie
+  const customerId = Cookies.get('customerId');
+
+  // Function to generate a unique order ID using a timestamp and customer ID
+  const generateUniqueOrderId = () => {
+    const timestamp = Date.now();
+    return `ORD-${customerId}-${timestamp}`;
+  };
 
   useEffect(() => {
     if (location.state && location.state.orderId) {
       setInputs((prevState) => ({
         ...prevState,
-        ordernu: location.state.orderId,  // Set the orderId from location state if available
+        ordernu: location.state.orderId,
       }));
     }
-  }, [location.state]); // Now useEffect is defined
+  }, [location.state]);
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -65,10 +71,10 @@ function DashboardReturn() {
         }
         break;
       case 'phone':
-        if (!/^\d{0,10}$/.test(value)) {  // Restrict to only 10 digits
+        if (!/^\d{0,10}$/.test(value)) {
           isValid = false;
           alert("Phone number must contain exactly 10 digits.");
-        } else if (value.length > 10) {  // Prevent entering more than 10 digits
+        } else if (value.length > 10) {
           isValid = false;
           alert("Phone number cannot be more than 10 digits.");
         }
@@ -92,13 +98,10 @@ function DashboardReturn() {
       return;
     }
     try {
-      // Upload the image to Cloudinary
       const imageUrl = await uploadImageToCloudinary();
-
-      // Send the return order data with the customerId
       await sendRequest(imageUrl);
       alert('Return request submitted successfully!');
-      history(`/returnOrder`); // Redirect to user profile page after submission
+      history(`/returnOrder`);
     } catch (error) {
       console.error('Error submitting the return request:', error);
     }
@@ -109,27 +112,24 @@ function DashboardReturn() {
     const uploadPreset = 'agro_preset';
 
     const formDataToSend = new FormData();
-    formDataToSend.append('file', formData.image); // Add the image file
+    formDataToSend.append('file', formData.image);
     formDataToSend.append('upload_preset', uploadPreset);
 
     try {
       const cloudinaryResponse = await axios.post(cloudinaryUrl, formDataToSend, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-
-      console.log('Cloudinary Response:', cloudinaryResponse.data);
-      // Return the URL of the uploaded image
       return cloudinaryResponse.data.secure_url;
     } catch (error) {
       console.error('Error uploading to Cloudinary:', error);
-      throw error; // Rethrow the error to be handled by handleSubmit
+      throw error;
     }
   };
 
   const sendRequest = async (imageUrl) => {
     try {
-      const response = await axios.post("http://localhost:8100/returns", {
-        customerId: customerId, // Include the customerId with the return order data
+      await axios.post("http://localhost:8070/returns", {
+        customerId: customerId,
         ordernu: formData.ordernu,
         name: formData.name,
         email: formData.email,
@@ -138,10 +138,9 @@ function DashboardReturn() {
         qty: formData.qty,
         reason: formData.reason,
       });
-      console.log("Return request submitted successfully:", response.data);
     } catch (error) {
       console.error("Error submitting the form:", error);
-      throw error; // Rethrow the error to be handled by handleSubmit
+      throw error;
     }
   };
 
@@ -155,8 +154,7 @@ function DashboardReturn() {
             type="text"
             name="ordernu"
             value={formData.ordernu}
-            onChange={handleChange}
-            required
+            readOnly // Make the Order Number field read-only
           />
         </div>
         <div>
@@ -225,7 +223,7 @@ function DashboardReturn() {
             type="button"
             className='cancel-button'
             onClick={() => setInputs({
-              ordernu: '',
+              ordernu: generateUniqueOrderId(), // Reset to a new order ID if user cancels
               name: '',
               email: '',
               phone: '',

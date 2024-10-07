@@ -24,7 +24,7 @@ import UpdateMyProfile from './pages/profile/updateMyProfile';
 import ReportGenerate from './pages/reportGenerate';
 import ErrorPage from './pages/erroPage'; // Corrected errorPage import
 import OrdersPage from './pages/OrdersPage';
-
+import ReturnOrder from './components/returnOrder/ReturnOrder';
 import AddProduct from './components/AddProduct/AddProduct';
 import Products from './components/Products/Products'; // Import your Products component
 import ProductView from './components/ProductView/ProductView';
@@ -37,7 +37,7 @@ import OrderConfirmation from './components/OrderConfirmation';
 import Payment from './components/Payment';
 import MyPayments from './components/MyPayments';
 import DashboardReturn from "./components/dashboardReturn/DashboardReturn";
-import ReturnOrder from "./components/returnOrder/ReturnOrder";
+
 
 import Update from './components/update/Update';
 import ManagerOrderView from './components/managerOrderView/ManagerOrderView';
@@ -127,7 +127,7 @@ function App() {
           <Route path="/approved" element={<Approved />} />
           <Route path="/rejected" element={<Rejected />} />
 
-
+            
 
                     <Route
                         path="/requests"
@@ -161,7 +161,9 @@ function App() {
                     <Route path="/edit-feedback/:id" element={<EditFeedback />} /> 
                     <Route path="/dash" element={<Dash />} /> 
                     <Route path="/feedback-list" element={<FeedbackList />} />
+                    
 
+<Route path="/myreturns/:customerId" element={<ReturnOrder />} /> {/* Route for View Returns */}
                 </Routes>
                 <Footer />
             </div>

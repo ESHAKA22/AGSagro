@@ -1,36 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie'; // Import js-cookie to get customerId
 import './returnOrder.css';
 
 function ReturnOrder() {
   const [returns, setReturns] = useState([]);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const navigate = useNavigate();
-
+  const customerId = Cookies.get('customerId'); // Get the customer ID from the cookie
+  const navigate = useNavigate(); // Initialize useNavigate for navigation
 
   useEffect(() => {
     const fetchReturns = async () => {
       try {
-        const response = await axios.get('http://localhost:8100/returns'); 
-        setReturns(response.data.returns || []); 
+        // Fetch return orders for the specific logged-in customer using customerId
+        const response = await axios.get(`http://localhost:8070/returns?customerId=${customerId}`);
+        setReturns(response.data.returns || []);
       } catch (error) {
         console.error('Error fetching return orders:', error);
       }
     };
 
-    fetchReturns();
-  }, []); 
+    if (customerId) {
+      fetchReturns(); // Fetch returns only if customerId exists
+    }
+  }, [customerId]);
 
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this return order?");
     if (!confirmDelete) return;
     try {
-      // Call the backend to delete the return order by ID
-      const response = await axios.delete(`http://localhost:8100/returns/${id}`);
+      const response = await axios.delete(`http://localhost:8070/returns/${id}`);
 
       if (response.status === 200) {
-        // If successful, filter out the deleted order from the state
         setReturns((prevReturns) => prevReturns.filter((order) => order._id !== id));
         alert("Return order successfully deleted");
       } else {
@@ -41,15 +42,11 @@ function ReturnOrder() {
       alert("Error occurred while deleting the return order.");
     }
   };
-  const openImageModal = (imageSrc) => {
-    setSelectedImage(imageSrc); // Set the selected image for zoom
+
+  const handleUpdateClick = (id) => {
+    navigate(`/returnOrder/${id}`); // Navigate to the update page for the selected order
   };
 
-  // Function to close the modal
-  const closeImageModal = () => {
-    setSelectedImage(null); // Close the modal by resetting the selected image
-  };
-  
   return (
     <div className="return-order-container">
       <h1>Return Orders</h1>
@@ -65,7 +62,7 @@ function ReturnOrder() {
               <th>Phone</th>
               <th>Quantity</th>
               <th>Reason</th>
-              <th>pictures</th>
+              <th>Pictures</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -79,15 +76,14 @@ function ReturnOrder() {
                 <td>{returnOrder.qty}</td>
                 <td>{returnOrder.reason}</td>
                 <td>
-                      {returnOrder.image ? (
-                           <img src={returnOrder.image} alt="Product" style={{ width: "100px", height: "100px" }} />
-                     ) : (
-                            <span>No image</span>
-                        )}
+                  {returnOrder.image ? (
+                    <img src={returnOrder.image} alt="Product" style={{ width: "100px", height: "100px" }} />
+                  ) : (
+                    <span>No image</span>
+                  )}
                 </td>
-
                 <td>
-                  <Link to={`/returnOrder/${returnOrder._id}`}>Update</Link>
+                  <button onClick={() => handleUpdateClick(returnOrder._id)}>Update</button>
                   <button onClick={() => handleDelete(returnOrder._id)}>Delete</button>
                 </td>
               </tr>
