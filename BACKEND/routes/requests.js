@@ -96,9 +96,10 @@ router.delete('/:id', async (req, res) => {
         if (!customRequest) {
             return res.status(404).json({ message: 'Request not found' });
         }
-        res.json({ message: 'Request deleted' });
+        res.status(200).json({ message: 'Request deleted successfully' });
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        console.error('Error deleting request:', err);
+        res.status(500).json({ message: 'Failed to delete the request' });
     }
 });
 
@@ -115,11 +116,8 @@ router.get('/', async (req, res) => {
 // APPROVE a custom request by ID (PUT)
 router.put('/:id/approve', async (req, res) => {
     try {
-        const requestId = req.params.id;
-
-        // Find the request and update the status to 'Approved'
         const updatedRequest = await CustomRequest.findByIdAndUpdate(
-            requestId, 
+            req.params.id, 
             { status: 'Approved' }, 
             { new: true }
         );
@@ -128,9 +126,30 @@ router.put('/:id/approve', async (req, res) => {
             return res.status(404).json({ message: 'Request not found' });
         }
 
-        res.json(updatedRequest);
+        res.status(200).json(updatedRequest);
     } catch (error) {
+        console.error('Error approving request:', error);
         res.status(500).json({ message: 'Failed to approve request' });
+    }
+});
+
+// REJECT a custom request by ID (PUT)
+router.put('/:id/reject', async (req, res) => {
+    try {
+        const updatedRequest = await CustomRequest.findByIdAndUpdate(
+            req.params.id,
+            { status: 'Rejected' },
+            { new: true }
+        );
+
+        if (!updatedRequest) {
+            return res.status(404).json({ message: 'Request not found' });
+        }
+
+        res.status(200).json(updatedRequest);
+    } catch (err) {
+        console.error('Error rejecting request:', err);
+        res.status(500).json({ message: 'Failed to reject request' });
     }
 });
 
