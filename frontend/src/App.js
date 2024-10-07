@@ -30,7 +30,7 @@ import Products from './components/Products/Products'; // Import your Products c
 import ProductView from './components/ProductView/ProductView';
 import ProductDetail from './components/ProductDetail/ProductDetail';
 import UpdateProduct from './components/UpdateProduct/UpdateProduct';
-import Stat from './components/Status/Stat'
+import Stat from './components/Status/Stat';
 import MyOrders from './components/MyOrders'; 
 import Checkout from './components/Checkout'; 
 import OrderConfirmation from './components/OrderConfirmation';
@@ -45,6 +45,15 @@ import Approved from './components/approved/Approved';
 import Rejected from './components/rejected/Rejected';
 
 
+import FeaturesSection from './components/FeaturesSection';
+import CustomerFeedback from './components/CustomerFeedback';
+import EditFeedback from './components/EditFeedback';
+import AddTicket from './components/AddTicket';
+import AddNews from './components/AddNews';
+import NewsList from './components/NewsList';
+import SupportTicketList from './components/SupportTicketList';
+import Dash from './components/dash';
+import FeedbackList from './components/FeedbackList';
 import './styles.css';
 import './App.css';
 
@@ -99,17 +108,16 @@ function App() {
                     <Route path="/customer/myedit/:customerId" element={<UpdateMyProfile />} />
                     <Route path="/ReportGenerate" element={<ReportGenerate />} />
                     
-                    {/* Add the Products route for the catalogue */}
                     <Route path="/catalogue" element={<Products customerId={customerId} />} /> 
                     <Route path="/addproduct" element={<AddProduct />} />
                     <Route path="/productview" element={<ProductView />} />
-                    <Route path="/products" element={<Products customerId={customerId} />} /> {/* Pass customerId to Products */}
                     <Route path="/products/:id" element={<ProductDetail />} />
                     <Route path="/inventory" element={<ProductView />} />
                     <Route path="/productview/:id" element={<UpdateProduct />} />
                     <Route path="/order-confirmation" element={<OrderConfirmation />} />
+                    
                     {/* Add Cart Route */}
-                    <Route path="/cart" element={<Cart customerId={customerId} />} /> {/* Pass customerId to Cart */}
+                    <Route path="/cart" element={<Cart customerId={customerId} />} />
 
                     <Route path="/" element={<DashboardReturn />} />
                     <Route path="/return-request/:orderId" element={<DashboardReturn />} />
@@ -141,7 +149,19 @@ function App() {
                     <Route path="/mypayments/:customerId" element={<MyPayments />} />
                     <Route path="/mypayments" element={<MyPayments />} />
 
+                    {/* New Routes */}
                     <Route path="/order-confirmation" element={<OrderConfirmation />} />
+                    <Route path="/customer-service" element={<FeaturesSection />} />
+                    <Route path="/add-ticket" element={<AddTicket />} />
+                    
+                    <Route path="/news/add" element={<AddNews />} />
+                    <Route path="/add-feedback" element={<CustomerFeedback />} />
+                    <Route path="/news" element={<NewsList />} />
+                    <Route path="/support-tickets" element={<SupportTicketList />} />
+                    <Route path="/edit-feedback/:id" element={<EditFeedback />} /> 
+                    <Route path="/dash" element={<Dash />} /> 
+                    <Route path="/feedback-list" element={<FeedbackList />} />
+
                 </Routes>
                 <Footer />
             </div>

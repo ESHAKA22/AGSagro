@@ -1,0 +1,27 @@
+.card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+  }
+  
+  .card-img {
+    height: 150px;
+    object-fit: contain;
+  }
+  
+  .see-more-btn {
+    background-color: #0fb05f;
+    border: none;
+    padding: 0.5rem 1rem;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .see-more-btn:hover {
+    background-color: #27ae60;
+  }
+  

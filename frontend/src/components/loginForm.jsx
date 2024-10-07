@@ -28,7 +28,7 @@ const LoginForm = ({ setCustomerId }) => {
 
             if (user) {
                 setCustomerId(user.cid); // Store customer ID in state
-                Cookies.set('customerId', user.cid, { expires: 1 }); // Store customer ID in a cookie with 1 day expiration
+                Cookies.set('customerId', user.cid, { expires: 7 }); // Store customer ID in a cookie with 1 day expiration
                 alert('Login successful!');
                 navigate(`/myprofile/${user.cid}`); // Navigate to the profile page with cid
             } else {

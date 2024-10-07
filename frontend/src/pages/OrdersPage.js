@@ -6,26 +6,23 @@ const OrdersPage = () => {
     const [showCustomOrders, setShowCustomOrders] = useState(false);
     const [requests, setRequests] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null); // Handle any errors during fetching
+    const [error, setError] = useState(null);
 
     // Function to fetch requests from the backend
-    // Function to fetch requests from the backend
-const fetchRequests = async () => {
-    setLoading(true);  // Show loading spinner
-    setError(null);    // Reset error state
-    try {
-        // Ensure you're calling the correct backend route that fetches all custom requests
-        const response = await axios.get('http://localhost:8070/api/requests');  // Correct endpoint
-        console.log('Fetched Custom Orders:', response.data);  // Log data to verify
-        setRequests(response.data);  // Set the fetched requests
-    } catch (error) {
-        console.error('Error fetching requests:', error);
-        setError('Failed to fetch requests.');  // Set error message
-    } finally {
-        setLoading(false);  // Stop loading spinner
-    }
-};
-
+    const fetchRequests = async () => {
+        setLoading(true);  // Show loading spinner
+        setError(null);    // Reset error state
+        try {
+            const response = await axios.get('http://localhost:8070/api/requests');  // Correct endpoint
+            console.log('Fetched Custom Orders:', response.data);  // Log data to verify
+            setRequests(response.data);  // Set the fetched requests
+        } catch (error) {
+            console.error('Error fetching requests:', error);
+            setError('Failed to fetch requests.');  // Set error message
+        } finally {
+            setLoading(false);  // Stop loading spinner
+        }
+    };
 
     // Handle showing custom orders
     const handleShowCustomOrders = () => {
@@ -51,7 +48,6 @@ const fetchRequests = async () => {
 
     // Handle editing of a request
     const handleEdit = (request) => {
-        // Implement edit logic as needed
         console.log('Edit request:', request);
     };
 
@@ -100,6 +96,7 @@ const fetchRequests = async () => {
                     {!loading && !error && (
                         <RequestList 
                             requests={requests} 
+                            fetchRequests={fetchRequests}  // Pass fetchRequests function here
                             onDelete={handleDelete} 
                             onEdit={handleEdit} 
                         />

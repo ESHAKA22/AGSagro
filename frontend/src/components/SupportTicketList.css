@@ -1,0 +1,105 @@
+/* Container styling */
+.cont {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+    background-color: #49b1a3;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+
+  }
+  .cont h2 {
+    color: black;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  
+  /* Table styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  table th,
+  table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  table th {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  table td {
+    background-color: #fff;
+  }
+  
+  /* Button styling */
+  .btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+  
+  .btn-warning {
+    background-color: #ffc107;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+  }
+  
+  .btn-info {
+    background-color: #17a2b8;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+  }
+  
+  .btn-success {
+    background-color: #28a745;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+  }
+  
+  /* Input and textarea styling */
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  textarea.form-control {
+    resize: vertical;
+  }
+  
+  /* Add some space between reply and cancel buttons */
+  textarea + .btn {
+    margin-top: 10px;
+  }
+  
+  /* Search bar styling */
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  input[type="text"]::placeholder {
+    color: #999;
+  }
+  
