@@ -1,0 +1,96 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.order-list {
+    margin-top: 20px;
+}
+
+.order-item {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-item h2 {
+    font-size: 1.2em;
+    margin: 0;
+}
+
+.approve, .reject {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.approve {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+.approve:hover {
+    background-color: #45a049; /* Darker green */
+}
+
+.reject {
+    background-color: #f44336; /* Red */
+    color: white;
+}
+
+.reject:hover {
+    background-color: #d32f2f; /* Darker red */
+}
+
+.message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 3px;
+    color: #333;
+    background-color: #e8f0fe; /* Light blue background */
+    border: 1px solid #90caf9; /* Light blue border */
+}
+
+/* Specific styles for Approved component */
+.approved-list {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #e0ffe0; /* Light green background */
+    border-radius: 4px;
+    border: 1px solid #4CAF50; /* Green border */
+}
+
+.approved-list li {
+    margin: 5px 0;
+    padding: 5px;
+    background-color: #fff; /* White background for list items */
+    border-radius: 3px;
+    border: 1px solid #ddd; /* Light border for items */
+}

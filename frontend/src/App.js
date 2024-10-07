@@ -36,6 +36,13 @@ import Checkout from './components/Checkout';
 import OrderConfirmation from './components/OrderConfirmation';
 import Payment from './components/Payment';
 import MyPayments from './components/MyPayments';
+import DashboardReturn from "./components/dashboardReturn/DashboardReturn";
+import ReturnOrder from "./components/returnOrder/ReturnOrder";
+
+import Update from './components/update/Update';
+import ManagerOrderView from './components/managerOrderView/ManagerOrderView';
+import Approved from './components/approved/Approved';
+import Rejected from './components/rejected/Rejected';
 
 
 import './styles.css';
@@ -103,6 +110,16 @@ function App() {
                     <Route path="/order-confirmation" element={<OrderConfirmation />} />
                     {/* Add Cart Route */}
                     <Route path="/cart" element={<Cart customerId={customerId} />} /> {/* Pass customerId to Cart */}
+
+                    <Route path="/" element={<DashboardReturn />} />
+                    <Route path="/return-request/:orderId" element={<DashboardReturn />} />
+                    <Route path="/returnOrder" element={<ReturnOrder />} />
+                    <Route path="/returnOrder/:id" element={<Update />} />
+          <Route path="/manage-returns" element={<ManagerOrderView />} />
+          <Route path="/approved" element={<Approved />} />
+          <Route path="/rejected" element={<Rejected />} />
+
+
 
                     <Route
                         path="/requests"

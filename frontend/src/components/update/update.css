@@ -1,0 +1,66 @@
+/* Container styling for Update form */
+.update-container {
+    background-color: #ffffff; /* White background for the form */
+    border: 1px solid #e0e0e0; /* Light grey border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Padding inside the container */
+    max-width: 500px; /* Maximum width for better readability */
+    margin: 20px auto; /* Center the container with auto margins */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Title styling */
+h1 {
+    color: #4CAF50; /* Green color for the title */
+    text-align: center; /* Center the title */
+    margin-bottom: 20px; /* Space below the title */
+}
+
+/* Label styling */
+label {
+    font-weight: bold; /* Bold text for labels */
+    margin-bottom: 5px; /* Space below labels */
+    display: block; /* Make labels block elements */
+}
+
+/* Input field styling */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+textarea {
+    width: 100%; /* Full width for input fields */
+    padding: 10px; /* Padding inside input fields */
+    border: 1px solid #ccc; /* Light grey border for input fields */
+    border-radius: 4px; /* Rounded corners */
+    margin-bottom: 15px; /* Space below each input */
+}
+
+/* Button styling */
+button {
+    background-color: #4CAF50; /* Green background for buttons */
+    color: white; /* White text for buttons */
+    border: none; /* No border */
+    padding: 10px 15px; /* Padding inside buttons */
+    border-radius: 5px; /* Rounded borders */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+    margin-right: 10px; /* Space between buttons */
+}
+
+/* Hover effect for buttons */
+button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+/* Cancel button specific styling */
+.cancel-button {
+    background-color: #f5f5dc; /* Cream background */
+    color: black; /* Black text */
+    border: 2px solid black; /* Black outline */
+}
+
+/* Hover effect for Cancel button */
+.cancel-button:hover {
+    background-color: #e6e6e6; /* Light grey on hover */
+    border-color: red; /* Red outline on hover */
+}

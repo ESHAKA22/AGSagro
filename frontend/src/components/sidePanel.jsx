@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // Use Link from react-router-dom for internal navigation
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Import FontAwesome icons
-import { faTachometerAlt, faUser, faUsers, faClipboardList, faTable, faShoppingCart, faFileAlt, faSignOutAlt, faBoxes } from '@fortawesome/free-solid-svg-icons'; // Import the inventory icon (faBoxes)
+import { faTachometerAlt, faUser, faUsers, faClipboardList, faTable, faShoppingCart, faFileAlt, faSignOutAlt, faBoxes, faUndo } from '@fortawesome/free-solid-svg-icons'; // Import the faUndo icon for "Review Returns"
 import './styles/sidePanel.css';
 
 const SidePanel = ({ current }) => {
@@ -13,6 +13,7 @@ const SidePanel = ({ current }) => {
     { name: 'loyalty table', value: '/loyaltyTable', icon: faTable },
     { name: 'orders', value: '/orders', icon: faShoppingCart }, // Added Orders button
     { name: 'inventory', value: '/inventory', icon: faBoxes }, // Added Inventory button
+    { name: 'review returns', value: '/manage-returns', icon: faUndo }, // Added Review Returns button
     { name: 'Report', value: '/ReportGenerate', icon: faFileAlt },
     { name: 'log out', value: '/login', icon: faSignOutAlt }
   ];

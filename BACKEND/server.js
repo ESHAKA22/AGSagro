@@ -6,6 +6,8 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const orderRoutes = require('./routes/orderRoutes');  // Declared only once here
+const ReturnRoutes = require('./routes/ReturnRoutes'); // Added from app.js
+
 // Initialize express app
 const app = express();
 
@@ -20,10 +22,10 @@ app.use(express.json()); // Parse incoming JSON
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-// MongoDB Connection
+// MongoDB Connection (merged MongoDB connection logic from app.js)
 const connectDB = async () => {
     try {
-        await mongoose.connect(process.env.MONGO_URI || process.env.MONGODB_URL, {
+        await mongoose.connect(process.env.MONGO_URI || process.env.MONGODB_URL || "mongodb+srv://Pamudu:ags123@ags.prm6t.mongodb.net/AGS?retryWrites=true&w=majority&appName=AGS", {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
@@ -77,9 +79,8 @@ app.use('/api/cart', cartRoutes); // Added cart routes
 app.use('/api/requests', requestRouter);
 app.use('/api/orders', orderRoutes); // Use the new order routes
 
-app.use('/api', orderRoutes); // Fixed order routes
-app.use('/api', cartRoutes); 
-
+// Add Return Routes from app.js
+app.use("/returns", ReturnRoutes); // Added Return Routes from app.js
 
 app.put('/requests/:id/approve', async (req, res) => {
     try {
@@ -90,8 +91,6 @@ app.put('/requests/:id/approve', async (req, res) => {
         res.status(500).json({ message: 'Failed to approve request' });
     }
 });
-
-
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {
@@ -104,7 +103,7 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Start the server
+// Start the server (merged the server start logic from app.js)
 const PORT = process.env.PORT || 8070;
 app.listen(PORT, () => {
     console.log(`Server is running on port: ${PORT}`);
