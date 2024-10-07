@@ -67,10 +67,7 @@ const categories = [
 const FeaturesSection = () => {
   return (
     <section className="features-section">
-      <div className="header-section">
-        <h2>OUR SERVICES & FEATURES</h2>
-        <Link to="/dashboard" className="support-ticket-btn">Support Ticket</Link>
-      </div>
+      
 
       {/* Customer Service Section with Additional Text */}
       <div className="customer-service-section">
@@ -109,7 +106,7 @@ const FeaturesSection = () => {
             <div key={index} className="category-card">
               <div className="category-icon">{category.icon}</div>
               <h4>{category.title}</h4>
-              <Link to={category.link} className="category-link">Learn More</Link>
+              
             </div>
           ))}
         </div>

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import Cart from './components/Cart'; // Import the Cart component
+import Cart from './components/Cart';
 import RequestForm from './components/RequestForm';
 import EditRequest from './components/EditRequest';
 import Home from './pages/Home';
@@ -24,9 +24,10 @@ import UpdateMyProfile from './pages/profile/updateMyProfile';
 import ReportGenerate from './pages/reportGenerate';
 import ErrorPage from './pages/erroPage'; // Corrected errorPage import
 import OrdersPage from './pages/OrdersPage';
-
+import ManageTicketsAndFeedback from './components/ManageTicketsAndFeedback'; 
+import UpdateTicket from './components/UpdateTicket';
 import AddProduct from './components/AddProduct/AddProduct';
-import Products from './components/Products/Products'; // Import your Products component
+import Products from './components/Products/Products'; 
 import ProductView from './components/ProductView/ProductView';
 import ProductDetail from './components/ProductDetail/ProductDetail';
 import UpdateProduct from './components/UpdateProduct/UpdateProduct';
@@ -37,7 +38,6 @@ import OrderConfirmation from './components/OrderConfirmation';
 import Payment from './components/Payment';
 import MyPayments from './components/MyPayments';
 
-
 import FeaturesSection from './components/FeaturesSection';
 import CustomerFeedback from './components/CustomerFeedback';
 import EditFeedback from './components/EditFeedback';
@@ -47,6 +47,10 @@ import NewsList from './components/NewsList';
 import SupportTicketList from './components/SupportTicketList';
 import Dash from './components/dash';
 import FeedbackList from './components/FeedbackList';
+
+// Import the ManageTickets component
+import ManageTickets from './components/ManageTickets'; 
+
 import './styles.css';
 import './App.css';
 
@@ -100,7 +104,8 @@ function App() {
                     <Route path="/myprofile/:customerId" element={<UserProfile />} />
                     <Route path="/customer/myedit/:customerId" element={<UpdateMyProfile />} />
                     <Route path="/ReportGenerate" element={<ReportGenerate />} />
-                    
+                    <Route path="/manage-tickets-feedback" element={<ManageTicketsAndFeedback />} /> 
+                    <Route path="/manage-ticket/:id" element={<UpdateTicket />} />
                     <Route path="/catalogue" element={<Products customerId={customerId} />} /> 
                     <Route path="/addproduct" element={<AddProduct />} />
                     <Route path="/productview" element={<ProductView />} />
@@ -145,6 +150,8 @@ function App() {
                     <Route path="/dash" element={<Dash />} /> 
                     <Route path="/feedback-list" element={<FeedbackList />} />
 
+                    {/* Add new route for ManageTickets */}
+                    <Route path="/manage-tickets/:customerId" element={<ManageTickets />} /> 
                 </Routes>
                 <Footer />
             </div>
