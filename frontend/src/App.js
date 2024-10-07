@@ -46,7 +46,7 @@ import AddNews from './components/AddNews';
 import NewsList from './components/NewsList';
 import SupportTicketList from './components/SupportTicketList';
 import Dash from './components/dash';
-
+import FeedbackList from './components/FeedbackList';
 import './styles.css';
 import './App.css';
 
@@ -143,6 +143,7 @@ function App() {
                     <Route path="/support-tickets" element={<SupportTicketList />} />
                     <Route path="/edit-feedback/:id" element={<EditFeedback />} /> 
                     <Route path="/dash" element={<Dash />} /> 
+                    <Route path="/feedback-list" element={<FeedbackList />} />
 
                 </Routes>
                 <Footer />
