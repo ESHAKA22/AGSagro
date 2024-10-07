@@ -1,0 +1,61 @@
+/* ManageTickets.css */
+
+
+  
+  h2 {
+    text-align: center; /* Center the heading */
+    color: #333; /* Change the color of the heading */
+  }
+  
+  .table {
+    width: 100%; /* Make the table take full width */
+    margin-top: 20px; /* Add some space above the table */
+    border-collapse: collapse; /* Remove gaps between table cells */
+  }
+  
+  .table th,
+  .table td {
+    padding: 12px; /* Add padding to table cells */
+    text-align: left; /* Align text to the left */
+    border-bottom: 1px solid #ddd; /* Add a border between rows */
+  }
+  
+  .table th {
+    background-color: #f8f9fa; /* Light background for headers */
+    color: #333; /* Darker text for headers */
+  }
+  
+  .table tbody tr:hover {
+    background-color: #f1f1f1; /* Highlight row on hover */
+  }
+  
+  .btn {
+    padding: 8px 12px; /* Add padding to buttons */
+    border-radius: 4px; /* Round the corners of buttons */
+  }
+  
+  .btn-primary {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: #fff; /* White text for buttons */
+    border: none; /* Remove border */
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+  }
+  
+  .btn-danger {
+    background-color: #dc3545; /* Bootstrap danger color */
+    color: #fff; /* White text for buttons */
+    border: none; /* Remove border */
+  }
+  
+  .btn-danger:hover {
+    background-color: #c82333; /* Darker shade on hover */
+  }
+  
+  /* Margin between buttons */
+  .ml-2 {
+    margin-left: 10px; /* Add margin for space between buttons */
+  }
+  

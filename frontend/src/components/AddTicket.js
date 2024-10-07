@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { jsPDF } from "jspdf"; // Import jsPDF library
-import "jspdf-autotable"; // Import jsPDF AutoTable plugin
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
 import './AddTicket.css';
 
 export default function AddTicket() {
@@ -29,7 +29,6 @@ export default function AddTicket() {
 
   const validate = () => {
     let errors = {};
-
     if (!fname.trim()) errors.fname = "First name is required";
     if (!lname.trim()) errors.lname = "Last name is required";
     if (!email.trim()) errors.email = "Email is required";
@@ -39,21 +38,17 @@ export default function AddTicket() {
     } else if (!/^\d{10}$/.test(number)) {
       errors.number = "Phone number must be exactly 10 digits.";
     }
-    if (!date.trim()) errors.date = "Date is required"; // Validate date
-
+    if (!date.trim()) errors.date = "Date is required";
     return errors;
   };
 
   const generatePDF = () => {
     const doc = new jsPDF();
-
-    // Set up PDF Title and Headers
     doc.setFontSize(18);
     doc.text("Ticket Report", 14, 22);
     doc.setFontSize(12);
     doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 14, 30);
 
-    // Create Table Structure
     const tableColumn = ["Field", "Value"];
     const tableRows = [
       ["First Name", fname],
@@ -63,14 +58,13 @@ export default function AddTicket() {
       ["Problem Type", option],
       ["Priority Level", radios],
       ["Comments", comment],
-      ["Date", date], // Add date to the PDF
+      ["Date", date],
     ];
 
-    // Adding table using AutoTable plugin
     doc.autoTable({
       head: [tableColumn],
       body: tableRows,
-      startY: 40, // Start the table below the title
+      startY: 40,
       theme: "grid",
       styles: { fontSize: 10 },
       headStyles: { fillColor: [22, 160, 133] },
@@ -80,7 +74,7 @@ export default function AddTicket() {
     doc.save("ticket_report.pdf");
   };
 
-  function sendData(e) {
+  const sendData = (e) => {
     e.preventDefault();
 
     const formData = new FormData();
@@ -91,7 +85,7 @@ export default function AddTicket() {
     formData.append("priority_level", radios);
     formData.append("problem", option);
     formData.append("comments", comment);
-    formData.append("date", date); // Add date to form data
+    formData.append("date", date);
     if (attach) {
       formData.append("attachment", attach);
     }
@@ -106,7 +100,7 @@ export default function AddTicket() {
         })
         .then(() => {
           alert("Ticket added successfully");
-          generatePDF(); // Generate the PDF for the new ticket
+          generatePDF();
 
           // Clear form fields
           setFName("");
@@ -117,12 +111,10 @@ export default function AddTicket() {
           setRadios("");
           setComment("");
           setAttach(null);
-          setDate(""); // Clear date field
+          setDate(""); 
 
-          // Set form as submitted
           setSubmitted(true);
 
-          // Wait for 2 seconds, then refresh the page
           setTimeout(() => {
             window.location.reload();
           }, 2000);
@@ -131,200 +123,202 @@ export default function AddTicket() {
     } else {
       setErrors(validationErrors);
     }
-  }
+  };
 
   return (
-    <div className="ticket-form-container">
-      <form onSubmit={sendData}>
-        <h2>Submit a Ticket</h2>
-        <div className="form-group">
-          <label htmlFor="fname">First Name *</label>
-          <input
-            type="text"
-            className={`form-control ${errors.fname ? "is-invalid" : ""}`}
-            id="fname"
-            placeholder="Enter first name"
-            onChange={(e) => setFName(e.target.value)}
-            value={fname}
-          />
-          {errors.fname && <div className="invalid-feedback">{errors.fname}</div>}
-        </div>
+    <div className="add-ticket-form">
+      <div className="container">
+        <form onSubmit={sendData}>
+          <h2>Submit a Ticket</h2>
+          <div className="form-group">
+            <label htmlFor="fname">First Name *</label>
+            <input
+              type="text"
+              className={`form-control ${errors.fname ? "is-invalid" : ""}`}
+              id="fname"
+              placeholder="Enter first name"
+              onChange={(e) => setFName(e.target.value)}
+              value={fname}
+            />
+            {errors.fname && <div className="invalid-feedback">{errors.fname}</div>}
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="lname">Last Name *</label>
-          <input
-            type="text"
-            className={`form-control ${errors.lname ? "is-invalid" : ""}`}
-            id="lname"
-            placeholder="Enter last name"
-            onChange={(e) => setLName(e.target.value)}
-            value={lname}
-          />
-          {errors.lname && <div className="invalid-feedback">{errors.lname}</div>}
-        </div>
+          <div className="form-group">
+            <label htmlFor="lname">Last Name *</label>
+            <input
+              type="text"
+              className={`form-control ${errors.lname ? "is-invalid" : ""}`}
+              id="lname"
+              placeholder="Enter last name"
+              onChange={(e) => setLName(e.target.value)}
+              value={lname}
+            />
+            {errors.lname && <div className="invalid-feedback">{errors.lname}</div>}
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="email">Email *</label>
-          <input
-            type="email"
-            className={`form-control ${errors.email ? "is-invalid" : ""}`}
-            id="email"
-            placeholder="Enter email address"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-          />
-          {errors.email && <div className="invalid-feedback">{errors.email}</div>}
-        </div>
+          <div className="form-group">
+            <label htmlFor="email">Email *</label>
+            <input
+              type="email"
+              className={`form-control ${errors.email ? "is-invalid" : ""}`}
+              id="email"
+              placeholder="Enter email address"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+            />
+            {errors.email && <div className="invalid-feedback">{errors.email}</div>}
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="number">Phone Number *</label>
-          <input
-            type="text"
-            className={`form-control ${errors.number ? "is-invalid" : ""}`}
-            id="number"
-            placeholder="Enter phone number"
-            onChange={(e) => {
-              const value = e.target.value;
-              // Allow only digits and limit to 10 characters
-              if (/^\d{0,10}$/.test(value)) {
-                setNumber(value);
-              }
-            }}
-            value={number}
-          />
-          {errors.number && <div className="invalid-feedback">{errors.number}</div>}
-        </div>
+          <div className="form-group">
+            <label htmlFor="number">Phone Number *</label>
+            <input
+              type="text"
+              className={`form-control ${errors.number ? "is-invalid" : ""}`}
+              id="number"
+              placeholder="Enter phone number"
+              onChange={(e) => {
+                const value = e.target.value;
+                if (/^\d{0,10}$/.test(value)) {
+                  setNumber(value);
+                }
+              }}
+              value={number}
+            />
+            {errors.number && <div className="invalid-feedback">{errors.number}</div>}
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="option">I’m having a problem with *</label>
-          <select
-            className="form-control"
-            id="option"
-            required
-            onChange={(e) => setOption(e.target.value)}
-            value={option}
-          >
-            <option value="" disabled>
-              Choose...
-            </option>
-            <option value="Technical">Technical</option>
-            <option value="Billing">Billing</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
+          <div className="form-group">
+            <label htmlFor="option">I’m having a problem with *</label>
+            <select
+              className="form-control"
+              id="option"
+              required
+              onChange={(e) => setOption(e.target.value)}
+              value={option}
+            >
+              <option value="" disabled>
+                Choose...
+              </option>
+              <option value="Technical">Technical</option>
+              <option value="Billing">Billing</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
 
-        <fieldset className="form-group">
-          <legend className="col-form-label">Priority Level *</legend>
-          <div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="gridRadios"
-                id="gridRadios1"
-                value="Today"
-                onChange={(e) => setRadios(e.target.value)}
-                checked={radios === "Today"}
-              />
-              <label className="form-check-label" htmlFor="gridRadios1">
-                Today
-              </label>
+          <fieldset className="form-group">
+            <legend className="col-form-label">Priority Level *</legend>
+            <div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="gridRadios"
+                  id="gridRadios1"
+                  value="Today"
+                  onChange={(e) => setRadios(e.target.value)}
+                  checked={radios === "Today"}
+                />
+                <label className="form-check-label" htmlFor="gridRadios1">
+                  Today
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="gridRadios"
+                  id="gridRadios2"
+                  value="In The Next 48 Hours"
+                  onChange={(e) => setRadios(e.target.value)}
+                  checked={radios === "In The Next 48 Hours"}
+                />
+                <label className="form-check-label" htmlFor="gridRadios2">
+                  In The Next 48 Hours
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="gridRadios"
+                  id="gridRadios3"
+                  value="This Week"
+                  onChange={(e) => setRadios(e.target.value)}
+                  checked={radios === "This Week"}
+                />
+                <label className="form-check-label" htmlFor="gridRadios3">
+                  This Week
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="gridRadios"
+                  id="gridRadios4"
+                  value="Future"
+                  onChange={(e) => setRadios(e.target.value)}
+                  checked={radios === "Future"}
+                />
+                <label className="form-check-label" htmlFor="gridRadios4">
+                  Future
+                </label>
+              </div>
             </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="gridRadios"
-                id="gridRadios2"
-                value="In The Next 48 Hours"
-                onChange={(e) => setRadios(e.target.value)}
-                checked={radios === "In The Next 48 Hours"}
-              />
-              <label className="form-check-label" htmlFor="gridRadios2">
-                In The Next 48 Hours
-              </label>
-            </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="gridRadios"
-                id="gridRadios3"
-                value="This Week"
-                onChange={(e) => setRadios(e.target.value)}
-                checked={radios === "This Week"}
-              />
-              <label className="form-check-label" htmlFor="gridRadios3">
-                This Week
-              </label>
-            </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="gridRadios"
-                id="gridRadios4"
-                value="Future"
-                onChange={(e) => setRadios(e.target.value)}
-                checked={radios === "Future"}
-              />
-              <label className="form-check-label" htmlFor="gridRadios4">
-                Future
-              </label>
+          </fieldset>
+
+          <div className="form-group">
+            <label htmlFor="comment">Comment *</label>
+            <textarea
+              className="form-control"
+              id="comment"
+              rows="3"
+              required
+              onChange={(e) => setComment(e.target.value)}
+              value={comment}
+            ></textarea>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="date">Date *</label>
+            <input
+              type="date"
+              className={`form-control ${errors.date ? "is-invalid" : ""}`}
+              id="date"
+              onChange={(e) => setDate(e.target.value)}
+              value={date}
+            />
+            {errors.date && <div className="invalid-feedback">{errors.date}</div>}
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="attach">Attach a file</label>
+            <input
+              type="file"
+              className="form-control-file"
+              id="attach"
+              onChange={(e) => setAttach(e.target.files[0])}
+            />
+          </div>
+
+          <div className="progress" style={{ height: "20px", marginTop: "20px" }}>
+            <div
+              className="progress-bar"
+              role="progressbar"
+              style={{ width: `${rangeValue}%` }}
+              aria-valuenow={rangeValue}
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              {Math.round(rangeValue)}%
             </div>
           </div>
-        </fieldset>
 
-        <div className="form-group">
-          <label htmlFor="comment">Comments</label>
-          <textarea
-            className="form-control"
-            id="comment"
-            rows="3"
-            onChange={(e) => setComment(e.target.value)}
-            value={comment}
-          ></textarea>
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="date">Date *</label>
-          <input
-            type="date"
-            className={`form-control ${errors.date ? "is-invalid" : ""}`}
-            id="date"
-            onChange={(e) => setDate(e.target.value)}
-            value={date}
-          />
-          {errors.date && <div className="invalid-feedback">{errors.date}</div>}
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="attach">Attachment</label>
-          <input
-            type="file"
-            className="form-control"
-            id="attach"
-            onChange={(e) => setAttach(e.target.files[0])}
-          />
-        </div>
-
-        <div className="progress" style={{ height: "20px", marginTop: "20px" }}>
-          <div
-            className="progress-bar"
-            role="progressbar"
-            style={{ width: `${rangeValue}%` }}
-            aria-valuenow={rangeValue}
-            aria-valuemin="0"
-            aria-valuemax="100"
-          >
-            {Math.round(rangeValue)}%
-          </div>
-        </div>
-
-        <button type="submit" className="btn btn-primary mt-3">
-          Submit Ticket
-        </button>
-      </form>
+          <button type="submit" className="btn btn-primary mt-3">
+            Submit Ticket
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

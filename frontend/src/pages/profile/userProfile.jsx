@@ -137,6 +137,10 @@ const CustomerProfile = () => {
         navigate(`/myorders/${customerId}`);  // Navigate to MyOrders route
     };
 
+    const handleTicketFeedbackButtonClick = () => {
+        navigate(`/manage-tickets-feedback/`); // Navigate to ManageTickets route
+    };
+
     return (
         <div className="layoutFrame">
             <div className="innerFrame">
@@ -147,6 +151,7 @@ const CustomerProfile = () => {
                         <h4 onClick={handleMyPaymentsButtonClick}>View My Payments</h4> {/* Changed to View My Payments */}
                         <h4 onClick={handleLoyaltyButtonClick}>Become a Loyalty Member</h4>
                         <h4 onClick={handleUpdateButtonClick}>Update Profile</h4>
+                        <h4 onClick={handleTicketFeedbackButtonClick}>Ticket And Feedback</h4> {/* Linked to ManageTickets */}
                         <p onClick={handleLogoutButtonClick}>Logout</p>
                     </div>
                 </div>
