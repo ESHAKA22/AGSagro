@@ -1,0 +1,30 @@
+.supplier-requests-container {
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  .requests-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .requests-table th,
+  .requests-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .requests-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .error {
+    color: red;
+    text-align: center;
+  }
+  

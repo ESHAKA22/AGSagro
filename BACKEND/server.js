@@ -53,6 +53,7 @@ const loyaltyRouter = require('./routes/loyaltyRouter');
 const requestRouter = require('./routes/requests');
 const cartRoutes = require('./routes/CartRoutes'); // New import for cart routes
 const orderRoutes = require('./routes/orderRoutes');  // Your order routes
+const RequestRoutes = require('./routes/StockReplenishmentRequest.js');
 
 // Import friend's routes
 const customerRouter = require('./routes/customer');
@@ -61,6 +62,7 @@ const newsRouter = require('./routes/newsRoutes');
 
 // Use your routes
 app.use('/api/products', productRoutes);
+app.use('/api/stockrequests', RequestRoutes);
 
 // Example route from friend's server.js
 app.get('/api/products/:id', (req, res) => {

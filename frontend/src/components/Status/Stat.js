@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './Status.css'; // Add your styling here
+import './Status.css';
 import Nav from "../Nav/Nav";
 
 const Home = () => {
@@ -21,6 +21,27 @@ const Home = () => {
 
     fetchLowStockProducts();
   }, []);
+
+  const handleRequest = async (productId, supplierId) => {
+    const quantity = prompt("Enter the quantity you want to request:");
+
+    // Check if the user entered a valid quantity
+    if (quantity && !isNaN(quantity) && quantity > 0) {
+      try {
+        const response = await axios.post('http://localhost:8070/api/stockrequests/requests', {
+          productId,
+          supplierId,
+          quantity: parseInt(quantity), // Convert to integer
+        });
+        alert('Stock request sent successfully!');
+      } catch (error) {
+        console.error('Error sending stock request:', error);
+        alert('Failed to send stock request.');
+      }
+    } else {
+      alert('Please enter a valid quantity.');
+    }
+  };
 
   const outOfStockProducts = products.filter(product => product.Quantity === 0);
   const lowStockProducts = products.filter(product => product.Quantity > 0 && product.Quantity < 16);
@@ -48,6 +69,7 @@ const Home = () => {
             <th>Category</th>
             <th>Manufacturer</th>
             <th>Supplier ID</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -59,6 +81,11 @@ const Home = () => {
               <td>{product.Category}</td>
               <td>{product.Manufacture}</td>
               <td>{product.Supplier_ID}</td>
+              <td>
+                <button onClick={() => handleRequest(product._id, product.Supplier_ID)}>
+                  Request Stock
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -80,6 +107,7 @@ const Home = () => {
             <th>Manufacturer</th>
             <th>Supplier ID</th>
             <th>Quantity</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -92,6 +120,11 @@ const Home = () => {
               <td>{product.Manufacture}</td>
               <td>{product.Supplier_ID}</td>
               <td>{product.Quantity}</td>
+              <td>
+                <button onClick={() => handleRequest(product._id, product.Supplier_ID)}>
+                  Request Stock
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -99,7 +132,6 @@ const Home = () => {
     )}
   </div>
   </div>
-    
   );
 };
 
