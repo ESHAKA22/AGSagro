@@ -37,6 +37,8 @@ import Checkout from './components/Checkout';
 import OrderConfirmation from './components/OrderConfirmation';
 import Payment from './components/Payment';
 import MyPayments from './components/MyPayments';
+import StockReplenishmentRequests from './components/StockRequest/StockReplenishmentRequests';
+import SmPOV from './components/StockRequest/SmPOV'
 
 import FeaturesSection from './components/FeaturesSection';
 import CustomerFeedback from './components/CustomerFeedback';
@@ -113,7 +115,11 @@ function App() {
                     <Route path="/inventory" element={<ProductView />} />
                     <Route path="/productview/:id" element={<UpdateProduct />} />
                     <Route path="/order-confirmation" element={<OrderConfirmation />} />
-                    
+                    <Route path="/stockrequests/requests" element={<StockReplenishmentRequests />} />
+                    <Route path="/stockrequests/requests/:id/status" element={<SmPOV/>} />
+                    <Route path="/productstat" element={<Stat/>} />
+
+
                     {/* Add Cart Route */}
                     <Route path="/cart" element={<Cart customerId={customerId} />} />
 

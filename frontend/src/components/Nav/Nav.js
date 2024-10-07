@@ -6,9 +6,14 @@ function Nav() {
   return (
     <nav>
       <ul className="home-ul">
-        <li className="home-ll">
-          <Link to="/" className="home-a">
+      <li className="home-ll">
+          <Link to="/productstat" className="home-a">
             <h1>Product Statues</h1>
+          </Link>
+        </li>
+        <li className="home-ll">
+          <Link to="/stockrequests/requests/" className="home-a">
+            <h1>Stock Replenishment</h1>
           </Link>
         </li>
         <li className="home-ll">
@@ -22,10 +27,10 @@ function Nav() {
           </Link>
         </li>
         <li className="home-ll">
-          <Link to="/Products" className="home-a">
-            <h1>Products</h1>
+          <Link to="/stockrequests/requests/$%7Bid%7D/status" className="home-a">
+            <h1>TEMP</h1>
           </Link>
-        </li>
+          </li>
       </ul>
     </nav>
   );
