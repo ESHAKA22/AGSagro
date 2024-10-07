@@ -24,12 +24,12 @@ const RequestList = ({ requests, fetchRequests }) => {
             setNotification(null); // Clear any previous notifications
             await apiFunc(); // Call the API function
             setNotification({ type: 'success', message: successMessage });
+            scrollToNotification(); // Scroll to the notification after setting it
             fetchRequests(); // Refresh the list after operation
-            scrollToNotification(); // Scroll to the notification
         } catch (error) {
             console.error(error);
             setNotification({ type: 'error', message: 'An error occurred while processing your request. Please try again later.' });
-            scrollToNotification(); // Scroll to the notification
+            scrollToNotification(); // Scroll to the notification on error as well
         } finally {
             setIsProcessing(false); // Re-enable buttons
         }
@@ -41,29 +41,42 @@ const RequestList = ({ requests, fetchRequests }) => {
         }
     };
 
-    const handleApprove = (id) => {
+    const handleApprove = (id, e) => {
+        e.preventDefault();
         handleApiCall(
             () => axios.put(`http://localhost:8070/requests/${id}/approve`, { withCredentials: true }),
             'The request has been successfully approved!'
-        );
+        ).then(() => {
+            alert('Request approved'); // Show alert when the request is approved
+        });
     };
+    
 
-    const handleReject = (id) => {
+    const handleReject = (id, e) => {
+        e.preventDefault();
         handleApiCall(
             () => axios.put(`http://localhost:8070/requests/${id}/reject`, { withCredentials: true }),
             'The request has been successfully rejected.'
-        );
+        ).then(() => {
+            alert('Request rejected'); // Show alert when the request is rejected
+        });
     };
+    
 
-    const handleDelete = (id) => {
-        handleApiCall(
-            () => axios.delete(`http://localhost:8070/requests/${id}`, { withCredentials: true }),
-            'The request has been successfully deleted.'
-        );
+    const handleDelete = (id, e) => {
+        e.preventDefault();
+        const confirmed = window.confirm('Are you sure you want to delete this request?'); // Show confirmation dialog
+        if (confirmed) {
+            handleApiCall(
+                () => axios.delete(`http://localhost:8070/requests/${id}`, { withCredentials: true }),
+                'The request has been successfully deleted.'
+            );
+        }
     };
+    
 
     const handleCalculateClick = (quantity, e) => {
-        e.preventDefault(); // Prevent default behavior
+        e.preventDefault();
         setSelectedQuantity(quantity);
         setShowCalculator(true);
 
@@ -72,12 +85,14 @@ const RequestList = ({ requests, fetchRequests }) => {
         }
     };
 
-    const handleCostCalculated = (totalCost) => {
-        setCalculatedCost(totalCost);
-    };
+    // Define the function near the top, within your component
+const handleCostCalculated = (totalCost) => {
+    setCalculatedCost(totalCost);
+};
+
 
     const handleGeneratePdf = (request, e) => {
-        e.preventDefault(); // Prevent default behavior
+        e.preventDefault();
         const doc = new jsPDF();
         doc.setFontSize(16);
         doc.text('Request Report', 14, 22);
