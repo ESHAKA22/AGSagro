@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import '../pages/styles/Cart.css';
 
 const Cart = () => {
     const navigate = useNavigate();
@@ -109,7 +110,7 @@ const Cart = () => {
                         return (
                             <li key={item.productId._id}>
                                 <h3>{item.productId.P_name}</h3>
-
+                                <img src={item.productId.P_Image} alt={item.productId.P_name} style={{ width: '100px', height: '100px' }} />
                                 {/* Display Unit Price and Total Price */}
                                 <p>Unit Price: Rs. {unitPrice.toLocaleString('en-LK')}</p>
                                 <p>Total Price: Rs. {totalPrice.toLocaleString('en-LK')}</p>

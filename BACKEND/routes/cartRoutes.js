@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Cart = require('../models/CartModel'); // Assuming the cart model is in models directory
+const Cart = require('../models/cartModel'); // Assuming the cart model is in models directory
 const Product = require('../models/ProductModel'); // Import Product model for validation
 
 // Middleware to extract cid from cookie
