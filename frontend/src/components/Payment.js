@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useNavigate, useLocation } from 'react-router-dom';
 import securePayment from '../assets/images/paymentlogo.png'; // Ensure the path to the secure payment image is correct
-import companyLogo from '../assets/images/logoH.png'; // Import your company logo
-import jsPDF from 'jspdf'; // Import jsPDF for generating PDF receipts
+
+
 
 const Payment = () => {
     const [bankDetails, setBankDetails] = useState({
@@ -49,60 +49,7 @@ const Payment = () => {
         }, 2000);
     };
 
-    const generateReceipt = () => {
-        const doc = new jsPDF();
-    
-        // Company logo
-        const logo = new Image();
-        logo.src = companyLogo; // Use the imported logo
-        logo.onload = function() {
-            // Add logo to the top left
-            doc.addImage(logo, 'PNG', 10, 10, 50, 20); 
-    
-            // Header
-            doc.setFontSize(20);
-            doc.text('Agro Asia', 70, 15); // Company Name
-            
-            doc.setFontSize(12);
-            doc.text('Main Street , Malabe', 70, 25); // Address Line 1
-            doc.text('Colombo 02', 70, 30); // Address Line 2
-            doc.text('Phone: (123) 456-7890', 70, 35); // Phone
-            doc.text('Email: info@agroasia.com', 70, 40); // Email
-            
-            // Separator line
-            doc.text('-------------------------------------------------------------------------------------------------------------------------------------------', 10, 50);
-    
-            // Receipt Title
-            doc.setFontSize(18);
-            doc.text('Receipt', 10, 60); // Receipt title
-    
-            // Issue Date
-            doc.setFontSize(12);
-            doc.text(`Date: ${new Date().toLocaleDateString()}`, 10, 70); // Current date
-    
-            // Items
-            doc.text('Items:', 10, 100); // Items header
-            let yPosition = 110;
-    
-            cart.forEach(item => {
-                const itemTotal = item.productId.Price * item.quantity; // Calculate item total
-                doc.text(`${item.productId.P_name} - Quantity: ${item.quantity} - Rs. ${itemTotal.toLocaleString()}`, 10, yPosition);
-                yPosition += 10; // Increment y position for the next item
-            });
-    
-            // Total Amount
-            doc.text(`Total Amount: Rs. ${cartTotal.toLocaleString()}`, 10, yPosition + 10); // Total amount
-    
-            // Footer
-            doc.setFontSize(10);
-            doc.text('-------------------------------------------------------------------------------------------------------------------------------------------', 10, yPosition + 20); // Separator line
-            doc.text('Thank you for your purchase!', 10, yPosition + 30); // Thank you message
-            doc.text('Visit us again!', 10, yPosition + 35); // Visit us message
-    
-            // Save the PDF
-            doc.save('receipt.pdf'); // Save file
-        };
-    };
+  
     
 
     return (
@@ -186,11 +133,7 @@ const Payment = () => {
                     </ul>
                     <h3 style={styles.cartTotal}>Total Amount: Rs. {cartTotal.toLocaleString()}</h3>
                     {/* Download receipt button */}
-                    <div style={styles.downloadReceiptContainer}>
-                        <button onClick={generateReceipt} style={styles.downloadBtn}>
-                            Download Receipt
-                        </button>
-                    </div>
+                    
                 </div>
             </div>
 
