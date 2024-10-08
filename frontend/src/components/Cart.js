@@ -1,30 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { FaTrash } from 'react-icons/fa';
 import '../pages/styles/Cart.css';
 
 const Cart = () => {
     const navigate = useNavigate();
     const [cart, setCart] = useState([]);
     const [customerId, setCustomerId] = useState(null);
-    const [quantities, setQuantities] = useState({}); // Store quantities for each product
-    const [isQuantityChanged, setIsQuantityChanged] = useState({}); // Track if quantity is changed for each product
+    const [quantities, setQuantities] = useState({});
+    const [isQuantityChanged, setIsQuantityChanged] = useState({});
+    const [subtotal, setSubtotal] = useState(0);
+    const [shippingFee] = useState(300); // Updated shipping fee to 300
+    const [discount, setDiscount] = useState(0);
+    const [couponCode, setCouponCode] = useState('');
 
     useEffect(() => {
         const fetchCart = async () => {
             try {
                 const response = await axios.get('http://localhost:8070/api/cart', { withCredentials: true });
                 setCart(response.data.products);
-
-                // Initialize quantities and isQuantityChanged states based on the fetched cart
-                const initialQuantities = {};
-                const initialChanges = {};
-                response.data.products.forEach(item => {
-                    initialQuantities[item.productId._id] = item.quantity; // Use _id to ensure unique identification
-                    initialChanges[item.productId._id] = false; // Initially, no quantity is changed
-                });
-                setQuantities(initialQuantities);
-                setIsQuantityChanged(initialChanges);
+                initializeCart(response.data.products);
             } catch (error) {
                 console.error('Error fetching cart:', error);
             }
@@ -33,8 +30,7 @@ const Cart = () => {
         const getCustomerIdFromCookies = () => {
             const id = document.cookie
                 .split('; ')
-                .find(row => row.startsWith('customerId='))
-                ?.split('=')[1];
+                .find(row => row.startsWith('customerId='))?.split('=')[1];
             setCustomerId(id);
         };
 
@@ -42,33 +38,31 @@ const Cart = () => {
         getCustomerIdFromCookies();
     }, []);
 
+    const initializeCart = (products) => {
+        const initialQuantities = {};
+        const initialChanges = {};
+        let total = 0;
+
+        products.forEach(item => {
+            initialQuantities[item.productId._id] = item.quantity;
+            initialChanges[item.productId._id] = false;
+            total += item.productId.Price * item.quantity;
+        });
+
+        setQuantities(initialQuantities);
+        setIsQuantityChanged(initialChanges);
+        setSubtotal(total);
+    };
+
     const handleCheckout = () => {
-        navigate('/checkout', { state: { cart } }); // Pass the cart data to checkout
-    };
-    
-
-    const handleIncreaseQuantity = (productId) => {
-        const newQuantity = quantities[productId] + 1;
-        setQuantities({
-            ...quantities,
-            [productId]: newQuantity // Only update the specific product's quantity
-        });
-        setIsQuantityChanged({
-            ...isQuantityChanged,
-            [productId]: true // Mark that the quantity has changed for this product
-        });
+        navigate('/checkout', { state: { cart } });
     };
 
-    const handleDecreaseQuantity = (productId) => {
-        const newQuantity = quantities[productId] > 1 ? quantities[productId] - 1 : 1;
-        setQuantities({
-            ...quantities,
-            [productId]: newQuantity // Only update the specific product's quantity
-        });
-        setIsQuantityChanged({
-            ...isQuantityChanged,
-            [productId]: true // Mark that the quantity has changed for this product
-        });
+    // Vanilla JS Input Spinner Functionality
+    const handleQuantityChange = (productId, increment) => {
+        const newQuantity = increment ? quantities[productId] + 1 : Math.max(1, quantities[productId] - 1);
+        setQuantities(prev => ({ ...prev, [productId]: newQuantity }));
+        setIsQuantityChanged(prev => ({ ...prev, [productId]: true }));
     };
 
     const handleUpdateQuantity = async (productId) => {
@@ -78,70 +72,153 @@ const Cart = () => {
                 quantity: quantities[productId]
             }, { withCredentials: true });
 
-            // After update, mark quantity change as false for the product
-            setIsQuantityChanged({
-                ...isQuantityChanged,
-                [productId]: false
-            });
-
-            alert('Cart updated successfully!');
+            setIsQuantityChanged(prev => ({ ...prev, [productId]: false }));
+            updateCartQuantity(productId);
+            Swal.fire('Cart updated successfully!');
         } catch (error) {
             console.error('Error updating quantity:', error);
         }
     };
 
+    const updateCartQuantity = (productId) => {
+        const updatedCart = cart.map(item => {
+            if (item.productId._id === productId) {
+                item.quantity = quantities[productId];
+            }
+            return item;
+        });
+        const newSubtotal = updatedCart.reduce((acc, item) => acc + item.productId.Price * item.quantity, 0);
+        setSubtotal(newSubtotal);
+    };
+
     const handleRemoveFromCart = async (productId) => {
-        try {
-            await axios.delete(`http://localhost:8070/api/cart/remove/${productId}`, { withCredentials: true });
-            setCart(cart.filter(item => item.productId._id !== productId));
-        } catch (error) {
-            console.error('Error removing product:', error);
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: 'Do you really want to remove this item from your cart?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, remove it!'
+        });
+
+        if (result.isConfirmed) {
+            try {
+                await axios.delete(`http://localhost:8070/api/cart/remove/${productId}`, { withCredentials: true });
+                setCart(cart.filter(item => item.productId._id !== productId));
+                updateSubtotalAfterRemoval(productId);
+                Swal.fire('Removed!', 'The item has been removed from your cart.', 'success');
+            } catch (error) {
+                Swal.fire('Error!', 'There was an error removing the product.', 'error');
+            }
+        }
+    };
+
+    const updateSubtotalAfterRemoval = (productId) => {
+        const updatedCart = cart.filter(item => item.productId._id !== productId);
+        const newSubtotal = updatedCart.reduce((acc, item) => acc + item.productId.Price * item.quantity, 0);
+        setSubtotal(newSubtotal);
+    };
+
+    const handleClearCart = async () => {
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: 'Do you really want to clear your cart?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, clear it!'
+        });
+
+        if (result.isConfirmed) {
+            try {
+                await axios.delete('http://localhost:8070/api/cart/clear', { withCredentials: true });
+                setCart([]);
+                setSubtotal(0);
+                Swal.fire('Cart Cleared', 'Your cart has been cleared.', 'success');
+            } catch (error) {
+                Swal.fire('Error', 'There was a problem clearing your cart.', 'error');
+            }
         }
     };
 
     return (
         <div className="cart">
-            <h1>My Cart</h1>
+            <h2>Your Cart</h2>
             {cart.length > 0 ? (
-                <ul>
-                    {cart.map((item) => {
-                        const unitPrice = item.productId.Price; // The price of a single unit
-                        const totalPrice = unitPrice * quantities[item.productId._id]; // Total price for the product
-                        return (
-                            <li key={item.productId._id}>
-                                <h3>{item.productId.P_name}</h3>
-                                <img src={item.productId.P_Image} alt={item.productId.P_name} style={{ width: '100px', height: '100px' }} />
-                                {/* Display Unit Price and Total Price */}
-                                <p>Unit Price: Rs. {unitPrice.toLocaleString('en-LK')}</p>
-                                <p>Total Price: Rs. {totalPrice.toLocaleString('en-LK')}</p>
-
-                                {/* Quantity Controls */}
-                                <div className="quantity-container">
-                                    <button onClick={() => handleDecreaseQuantity(item.productId._id)}>-</button>
-                                    <span>{quantities[item.productId._id]}</span>
-                                    <button onClick={() => handleIncreaseQuantity(item.productId._id)}>+</button>
-                                </div>
-
-                                {/* Show Update button only if quantity is changed */}
-                                {isQuantityChanged[item.productId._id] && (
+                <>
+                    <p>You have {cart.length} items in your cart</p>
+                    <div className="cart-items-list">
+                        {cart.map(item => {
+                            const unitPrice = item.productId.Price;
+                            const totalPrice = unitPrice * quantities[item.productId._id];
+                            return (
+                                <div key={item.productId._id} className="cart-item">
+                                    <img src={item.productId.P_Image} alt={item.productId.P_name} className="product-image" />
+                                    <div className="cart-item-details">
+                                        <h3>{item.productId.P_name}</h3>
+                                        <p>{item.productId.P_description}</p>
+                                        <div className="cart-item-price">
+                                            <p className="price">Price: Rs. {unitPrice.toLocaleString('en-LK')}</p>
+                                            <div className="quantity-controls">
+                                                <button 
+                                                    className="quantity-button" 
+                                                    onClick={() => handleQuantityChange(item.productId._id, false)}
+                                                    disabled={quantities[item.productId._id] <= 1}
+                                                >
+                                                    -
+                                                </button>
+                                                <input 
+                                                    type="text" 
+                                                    value={quantities[item.productId._id]} 
+                                                    readOnly 
+                                                    className="quantity-input"
+                                                />
+                                                <button 
+                                                    className="quantity-button" 
+                                                    onClick={() => handleQuantityChange(item.productId._id, true)}
+                                                >
+                                                    +
+                                                </button>
+                                                {isQuantityChanged[item.productId._id] && (
+                                                    <button 
+                                                        className="update-button" 
+                                                        onClick={() => handleUpdateQuantity(item.productId._id)}
+                                                    >
+                                                        Update
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </div>
+                                        <p>Total: Rs. {totalPrice.toLocaleString('en-LK')}</p>
+                                    </div>
                                     <button 
-                                        className="update-button" 
-                                        onClick={() => handleUpdateQuantity(item.productId._id)}
+                                        className="remove-button" 
+                                        onClick={() => handleRemoveFromCart(item.productId._id)}
                                     >
-                                        Update
+                                        <FaTrash /> 
                                     </button>
-                                )}
-
-                                {/* Remove Button */}
-                                <button onClick={() => handleRemoveFromCart(item.productId._id)}>Remove</button>
-                            </li>
-                        );
-                    })}
-                </ul>
+                                </div>
+                            );
+                        })}
+                    </div>
+                    <div className="cart-summary">
+                        <h3>Order Summary</h3>
+                        <p>Subtotal: Rs. {subtotal.toLocaleString('en-LK')}</p>
+                        <p>Shipping Fee: Rs. {shippingFee.toLocaleString('en-LK')}</p>
+                        <h4>Total: Rs. {(subtotal + shippingFee).toLocaleString('en-LK')}</h4>
+                        <button className="checkout-button" onClick={handleCheckout}>
+                            Proceed to Checkout
+                        </button>
+                        <button className="clear-cart-button" onClick={handleClearCart}>
+                            Clear Cart
+                        </button>
+                    </div>
+                </>
             ) : (
                 <p>Your cart is empty.</p>
             )}
-            <button onClick={handleCheckout}>Checkout</button>
         </div>
     );
 };

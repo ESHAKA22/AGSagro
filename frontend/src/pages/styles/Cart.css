@@ -1,79 +1,94 @@
+/* Add these styles to your Cart.css file */
+
 .cart {
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    max-width: 800px;
+    margin: auto;
 }
 
-.cart h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-.cart ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.cart li {
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.cart li h3 {
-    margin: 0;
-    color: #333;
-}
-
-.cart li p {
-    margin: 5px 0;
-    color: #666;
-}
-
-.quantity-container {
+.cart-item {
     display: flex;
     align-items: center;
+    margin-bottom: 25px;
     margin-top: 10px;
+    border: 1px solid #dadada;
+    padding: 10px;
 }
 
-.quantity-container button {
+.product-image {
+    width: 100px;
+    height: auto;
+    margin-right: 20px;
+}
+
+.cart-item-details {
+    flex: 1;
+}
+
+.cart h2 {
+    text-align: center; /* Center the title */
+    margin-bottom: 20px; /* Space below the title */
+    color: #333; /* Darker color for the title */
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+}
+
+.quantity-button {
     background-color: #007bff;
-    color: #fff;
+    color: white;
     border: none;
     padding: 5px 10px;
-    margin: 0 5px;
     cursor: pointer;
-    border-radius: 3px;
+    margin: 0 5px;
 }
 
-.quantity-container span {
-    margin: 0 10px;
-    font-size: 18px;
+.quantity-input {
+    width: 50px;
+    text-align: center;
+    margin: 0 5px;
 }
 
 .update-button {
     background-color: #28a745;
-}
-
-.update-button:hover {
-    background-color: #218838;
-}
-
-button {
-    background-color: #dc3545;
-    color: #fff;
+    color: white;
     border: none;
     padding: 5px 10px;
     cursor: pointer;
-    border-radius: 3px;
+    margin-left: 10px;
 }
 
-button:hover {
-    background-color: #c82333;
+.remove-button {
+    background-color: rgb(255, 255, 255);
+    color: rgb(236, 4, 4);
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.cart-summary {
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.checkout-button {
+    background-color: #057b28;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.clear-cart-button {
+    background-color: #e54505;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
